@@ -88,10 +88,20 @@ export const dryRunAllocation = async (req, res) => {
     const assignments = [];
 
     for (const task of allTasks) {
-      // Find best staff member (Least loaded)
+      // Find best staff member (Least loaded AND within max minutes)
       // In a real engine, we'd check time overlaps for fixed windows here.
-      staffLoad.sort((a, b) => a.minutesAllocated - b.minutesAllocated);
-      const bestStaff = staffLoad[0];
+      
+      // Filter staff who have capacity
+      const capableStaff = staffLoad.filter(s => 
+        s.minutesAllocated + task.duration <= s.staff.maxMinutesPerShift
+      );
+
+      // If no one has capacity, we might need to over-allocate or flag it.
+      // For now, let's fallback to all staff but prioritize those with capacity.
+      const candidatePool = capableStaff.length > 0 ? capableStaff : staffLoad;
+
+      candidatePool.sort((a, b) => a.minutesAllocated - b.minutesAllocated);
+      const bestStaff = candidatePool[0];
 
       bestStaff.minutesAllocated += task.duration;
       

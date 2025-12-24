@@ -6,14 +6,14 @@ import { GlobalTask } from "../models/GlobalTask.js";
 
 // Get Facility Overview
 export const getFacilityOverview = async (req, res) => {
+  const { date } = req.query; // Allow passing a date
   try {
     const wards = await Ward.find();
     const overview = [];
 
-    // Calculate total care time per wing for today (simplified)
-    // In a real app, we might want to pass a date or range
-    const today = new Date();
-    const dayOfWeek = today.toLocaleDateString('en-US', { weekday: 'long' });
+    // Calculate total care time per wing for specific date or today
+    const targetDate = date ? new Date(date) : new Date();
+    const dayOfWeek = targetDate.toLocaleDateString('en-US', { weekday: 'long' });
 
     for (const ward of wards) {
       const rooms = await Room.find({ ward: ward._id });
