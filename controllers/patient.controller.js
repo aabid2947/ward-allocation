@@ -1,9 +1,11 @@
 import { Patient } from "../models/Patient.js";
 import { Room } from "../models/Room.js";
 import { Ward } from "../models/Ward.js";
+import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
 
 // Get all patients
 export const getPatients = async (req, res) => {
+
   try {
     const patients = await Patient.find()
       .populate("currentWard")
@@ -16,9 +18,29 @@ export const getPatients = async (req, res) => {
 
 // Create a new patient (Admit Patient)
 export const admitPatient = async (req, res) => {
+  const { 
+    name, primaryCondition, careLevel, mobilityLevel, complexityScore, 
+    admissionDate, currentWard, currentRoom,
+    schedules // Array of { dayOfWeek, shift, taskType, durationMinutes, ... }
+  } = req.body;
+
   try {
-    const newPatient = new Patient(req.body);
+    // 1. Create Patient
+    const newPatient = new Patient({
+      name, primaryCondition, careLevel, mobilityLevel, complexityScore,
+      admissionDate, currentWard, currentRoom
+    });
     await newPatient.save();
+
+    // 2. Create Schedules if provided
+    if (schedules && Array.isArray(schedules)) {
+      const scheduleDocs = schedules.map(s => ({
+        ...s,
+        patient: newPatient._id
+      }));
+      await PatientCareSchedule.insertMany(scheduleDocs);
+    }
+
     res.status(201).json(newPatient);
   } catch (error) {
     res.status(400).json({ message: error.message });

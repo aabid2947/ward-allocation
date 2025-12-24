@@ -8,6 +8,7 @@ const PatientCareScheduleSchema = new mongoose.Schema({
     required: true
   },
   shift: { type: String, enum: ["AM", "PM"], required: true },
+  taskType: { type: String, enum: ["Shower", "Linen", "MorningCare", "EveningCare", "Toileting", "Other"], required: true },
   durationMinutes: { type: Number, required: true },
   isFixedTime: { type: Boolean, default: false },
   startTime: { type: String }, // Required if isFixedTime

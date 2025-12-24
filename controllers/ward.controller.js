@@ -2,9 +2,11 @@ import { Ward } from "../models/Ward.js";
 import { Room } from "../models/Room.js";
 import { Patient } from "../models/Patient.js";
 import { PatientWardHistory } from "../models/PatientWardHistory.js";
+import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
 
 // Get all wards
 export const getWards = async (req, res) => {
+
   try {
     const wards = await Ward.find();
     res.status(200).json(wards);
@@ -76,11 +78,37 @@ export const getWardControlCenter = async (req, res) => {
       const occupants = await Patient.find({
         currentRoom: room._id,
         status: { $in: ["Admitted", "OnLeave"] }
-      }).select("name status");
+      }).select("name status mobilityLevel");
       
+      const occupantsWithDetails = await Promise.all(occupants.map(async (patient) => {
+        // Get schedules for this patient (Shower, Linen)
+        // Assuming we want to show if they have these tasks TODAY or generally scheduled days
+        // For the "Grid View", usually it shows the days they have these tasks.
+        // Let's fetch all schedules for now and format them.
+        const schedules = await PatientCareSchedule.find({ patient: patient._id });
+        
+        const showerDays = schedules
+          .filter(s => s.taskType === "Shower")
+          .map(s => s.dayOfWeek);
+          
+        const linenDays = schedules
+          .filter(s => s.taskType === "Linen")
+          .map(s => s.dayOfWeek);
+
+        return {
+          _id: patient._id,
+          name: patient.name,
+          status: patient.status,
+          mobility: patient.mobilityLevel,
+          isOnLeave: patient.status === "OnLeave",
+          showerDays: [...new Set(showerDays)], // Unique days
+          linenDays: [...new Set(linenDays)]    // Unique days
+        };
+      }));
+
       controlCenterData.push({
         room: room,
-        occupants: occupants
+        occupants: occupantsWithDetails
       });
     }
 

@@ -1,6 +1,8 @@
 import { Ward } from "../models/Ward.js";
 import { Room } from "../models/Room.js";
 import { Patient } from "../models/Patient.js";
+import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
+import { GlobalTask } from "../models/GlobalTask.js";
 
 // Get Facility Overview
 export const getFacilityOverview = async (req, res) => {
@@ -8,23 +10,45 @@ export const getFacilityOverview = async (req, res) => {
     const wards = await Ward.find();
     const overview = [];
 
+    // Calculate total care time per wing for today (simplified)
+    // In a real app, we might want to pass a date or range
+    const today = new Date();
+    const dayOfWeek = today.toLocaleDateString('en-US', { weekday: 'long' });
+
     for (const ward of wards) {
       const rooms = await Room.find({ ward: ward._id });
       const totalRooms = rooms.length;
       const totalCapacity = rooms.reduce((sum, r) => sum + (r.isDoubleRoom ? 2 : 1), 0);
       
-      const occupants = await Patient.countDocuments({
+      const occupants = await Patient.find({
         currentWard: ward._id,
         status: { $in: ["Admitted", "OnLeave"] }
       });
 
+      // Calculate Total Care Minutes for this Ward
+      let totalCareMinutes = 0;
+      
+      // 1. Patient Care
+      for (const patient of occupants) {
+        const schedules = await PatientCareSchedule.find({ 
+          patient: patient._id,
+          dayOfWeek: dayOfWeek
+        });
+        totalCareMinutes += schedules.reduce((sum, s) => sum + s.durationMinutes, 0);
+      }
+
+      // 2. Global Tasks (Assuming some are ward-specific, but model doesn't link GlobalTask to Ward directly yet)
+      // If GlobalTasks are facility-wide, we might split them or just ignore for ward-specific total.
+      // Let's assume for now GlobalTasks are general overhead not specific to a ward unless we add a 'ward' field to GlobalTask.
+      
       overview.push({
         ward: ward.name,
         wing: ward.wing,
         totalRooms,
         totalCapacity,
-        occupants,
-        occupancyRate: totalCapacity > 0 ? (occupants / totalCapacity) * 100 : 0
+        occupants: occupants.length,
+        occupancyRate: totalCapacity > 0 ? (occupants.length / totalCapacity) * 100 : 0,
+        totalCareMinutes: totalCareMinutes
       });
     }
 
