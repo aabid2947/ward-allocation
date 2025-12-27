@@ -21,18 +21,20 @@ export const admitPatient = async (req, res) => {
   const { 
     name, primaryCondition, careLevel, mobilityLevel, complexityScore, 
     admissionDate, currentWard, currentRoom,
-    schedules // Array of { dayOfWeek, shift, taskType, durationMinutes, ... }
+    schedules, // Legacy: Array of { dayOfWeek, shift, taskType, durationMinutes, ... }
+    dailySchedule // New: Array of { startTime, endTime, isFixedDuration, activities }
   } = req.body;
 
   try {
     // 1. Create Patient
     const newPatient = new Patient({
       name, primaryCondition, careLevel, mobilityLevel, complexityScore,
-      admissionDate, currentWard, currentRoom
+      admissionDate, currentWard, currentRoom,
+      dailySchedule: dailySchedule || []
     });
     await newPatient.save();
 
-    // 2. Create Schedules if provided
+    // 2. Create Schedules if provided (Legacy support or specific overrides)
     if (schedules && Array.isArray(schedules)) {
       const scheduleDocs = schedules.map(s => ({
         ...s,
@@ -42,6 +44,18 @@ export const admitPatient = async (req, res) => {
     }
 
     res.status(201).json(newPatient);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Update Patient
+export const updatePatient = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedPatient = await Patient.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedPatient) return res.status(404).json({ message: "Patient not found" });
+    res.status(200).json(updatedPatient);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

@@ -6,14 +6,10 @@ import { GlobalTask } from "../models/GlobalTask.js";
 
 // Get Facility Overview
 export const getFacilityOverview = async (req, res) => {
-  const { date } = req.query; // Allow passing a date
   try {
     const wards = await Ward.find();
+    const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const overview = [];
-
-    // Calculate total care time per wing for specific date or today
-    const targetDate = date ? new Date(date) : new Date();
-    const dayOfWeek = targetDate.toLocaleDateString('en-US', { weekday: 'long' });
 
     for (const ward of wards) {
       const rooms = await Room.find({ ward: ward._id });
@@ -25,22 +21,21 @@ export const getFacilityOverview = async (req, res) => {
         status: { $in: ["Admitted", "OnLeave"] }
       });
 
-      // Calculate Total Care Minutes for this Ward
-      let totalCareMinutes = 0;
+      // Calculate Total Care Minutes for this Ward for EACH day
+      const weeklyLoad = {};
       
-      // 1. Patient Care
-      for (const patient of occupants) {
-        const schedules = await PatientCareSchedule.find({ 
-          patient: patient._id,
-          dayOfWeek: dayOfWeek
-        });
-        totalCareMinutes += schedules.reduce((sum, s) => sum + s.durationMinutes, 0);
+      for (const day of daysOfWeek) {
+        let dailyMinutes = 0;
+        for (const patient of occupants) {
+          const schedules = await PatientCareSchedule.find({ 
+            patient: patient._id,
+            dayOfWeek: day
+          });
+          dailyMinutes += schedules.reduce((sum, s) => sum + s.durationMinutes, 0);
+        }
+        weeklyLoad[day] = dailyMinutes;
       }
 
-      // 2. Global Tasks (Assuming some are ward-specific, but model doesn't link GlobalTask to Ward directly yet)
-      // If GlobalTasks are facility-wide, we might split them or just ignore for ward-specific total.
-      // Let's assume for now GlobalTasks are general overhead not specific to a ward unless we add a 'ward' field to GlobalTask.
-      
       overview.push({
         ward: ward.name,
         wing: ward.wing,
@@ -48,7 +43,7 @@ export const getFacilityOverview = async (req, res) => {
         totalCapacity,
         occupants: occupants.length,
         occupancyRate: totalCapacity > 0 ? (occupants.length / totalCapacity) * 100 : 0,
-        totalCareMinutes: totalCareMinutes
+        weeklyLoad // { Monday: 120, Tuesday: 140 ... }
       });
     }
 

@@ -57,7 +57,47 @@ export const getAvailableStaff = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// Get Staff Assignments for a specific date/shift
+export const getStaffAssignments = async (req, res) => {
+  const { date, shift } = req.query;
 
+  try {
+    if (!date) return res.status(400).json({ message: "Date is required" });
+
+    // 1. Get all active staff
+    const allStaff = await Staff.find({ active: true }).lean();
+
+    // 2. Get assignments for the date (and shift if provided)
+    const query = { shiftDate: new Date(date) };
+    if (shift) query.shift = shift;
+
+    const assignments = await ShiftAssignment.find(query)
+      .populate("ward")
+      .populate("patient")
+      .populate("globalTask")
+      .lean();
+
+    // 3. Map assignments to staff
+    const staffWithAssignments = allStaff.map(staff => {
+      const staffAssignments = assignments.filter(a => a.staff.toString() === staff._id.toString());
+      
+      // Group by shift if not filtered by shift
+      const assignmentsByShift = {
+        AM: staffAssignments.filter(a => a.shift === "AM"),
+        PM: staffAssignments.filter(a => a.shift === "PM")
+      };
+
+      return {
+        ...staff,
+        assignments: shift ? staffAssignments : assignmentsByShift
+      };
+    });
+
+    res.status(200).json(staffWithAssignments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 // Set Availability Override
 export const setAvailabilityOverride = async (req, res) => {
   const { staffId } = req.params;

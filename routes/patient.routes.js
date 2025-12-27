@@ -8,7 +8,8 @@ import {
   admitPatient,
   getPatientProfile,
   updateClinicalStatus,
-  dischargePatient
+  dischargePatient,
+  updatePatient
 } from "../controllers/patient.controller.js";
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router.get("/", getPatients);
 router.post("/", createPatient); // Alias for admitPatient
 router.post("/admit", admitPatient);
 router.get("/:patientId", getPatientProfile);
+router.put("/:id", updatePatient);
 router.put("/:patientId/clinical", updateClinicalStatus);
 router.put("/:patientId/discharge", dischargePatient);
 router.put("/:patientId/leave", setOnLeave);

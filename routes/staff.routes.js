@@ -6,12 +6,14 @@ import {
   toggleStaffActive,
   getFatigueReport,
   updateAvailability,
-  getAvailableStaff
+  getAvailableStaff,
+  getStaffAssignments
 } from "../controllers/staff.controller.js";
 
 const router = express.Router();
 
 router.get("/", getStaff);
+router.get("/assignments", getStaffAssignments);
 router.post("/", createStaff);
 router.get("/available", getAvailableStaff);
 router.put("/:staffId/availability", updateAvailability);

@@ -4,12 +4,18 @@ import { Patient } from "../models/Patient.js";
 import { PatientWardHistory } from "../models/PatientWardHistory.js";
 import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
 
-// Get all wards
+// Get all wards with their rooms
 export const getWards = async (req, res) => {
-
   try {
-    const wards = await Ward.find();
-    res.status(200).json(wards);
+    const wards = await Ward.find().lean();
+    const rooms = await Room.find({ active: true }).lean();
+
+    const wardsWithRooms = wards.map(ward => ({
+      ...ward,
+      rooms: rooms.filter(room => room.ward.toString() === ward._id.toString())
+    }));
+
+    res.status(200).json(wardsWithRooms);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -21,6 +27,59 @@ export const createWard = async (req, res) => {
     const newWard = new Ward(req.body);
     await newWard.save();
     res.status(201).json(newWard);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Update Ward
+export const updateWard = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedWard = await Ward.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedWard) return res.status(404).json({ message: "Ward not found" });
+    res.status(200).json(updatedWard);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Create Room
+export const createRoom = async (req, res) => {
+  try {
+    const newRoom = new Room(req.body);
+    await newRoom.save();
+    res.status(201).json(newRoom);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Update Room
+export const updateRoom = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedRoom = await Room.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedRoom) return res.status(404).json({ message: "Room not found" });
+    res.status(200).json(updatedRoom);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Delete Room
+export const deleteRoom = async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Check if room has patients
+    const patientCount = await Patient.countDocuments({ currentRoom: id, status: "Admitted" });
+    if (patientCount > 0) {
+      return res.status(400).json({ message: "Cannot delete room with admitted patients" });
+    }
+
+    const deletedRoom = await Room.findByIdAndDelete(id);
+    if (!deletedRoom) return res.status(404).json({ message: "Room not found" });
+    res.status(200).json({ message: "Room deleted successfully" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

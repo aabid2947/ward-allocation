@@ -21,6 +21,13 @@ const PatientSchema = new mongoose.Schema({
     enum: ["Admitted", "OnLeave", "Transferred", "Discharged"],
     default: "Admitted"
   },
+  dailySchedule: [{
+    startTime: String, // "HH:mm"
+    endTime: String,   // "HH:mm"
+    isFixedDuration: { type: Boolean, default: false },
+    durationMinutes: Number,
+    activities: [{ type: String }] // e.g. ["Morning Cares", "Toileting"]
+  }],
   currentWard: { type: mongoose.Schema.Types.ObjectId, ref: "Ward", required: true },
   currentRoom: { type: mongoose.Schema.Types.ObjectId, ref: "Room", required: true }
 }, { timestamps: true });

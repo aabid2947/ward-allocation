@@ -5,6 +5,7 @@ import { Patient } from "../models/Patient.js";
 import { GlobalTask } from "../models/GlobalTask.js";
 import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
 import { StaffOverride } from "../models/StaffOverride.js";
+import { Ward } from "../models/Ward.js";
 
 // Helper to check if shift is locked
 const isShiftLocked = async (date, shift) => {
@@ -68,21 +69,67 @@ export const dryRunAllocation = async (req, res) => {
     const dayOfWeek = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
     
     for (const patient of patients) {
+      // 1. Legacy/Specific Schedules
       const schedules = await PatientCareSchedule.find({ patient: patient._id, shift, dayOfWeek });
       schedules.forEach(schedule => {
+        // Calculate adjusted duration based on complexity
+        const complexity = patient.complexityScore || 1.0;
+        const adjustedDuration = Math.round(schedule.durationMinutes * complexity);
+
         allTasks.push({
           type: "PatientCare",
           data: schedule,
           patient: patient,
           priority: schedule.isFixedTime ? 1 : 3, // Assuming patient care is flexible unless fixed
-          duration: schedule.durationMinutes,
+          duration: adjustedDuration,
+          baseDuration: schedule.durationMinutes,
+          complexity: complexity,
           name: `${schedule.taskType} for ${patient.name}`
         });
       });
+
+      // 2. New Daily Schedule Slots
+      if (patient.dailySchedule && patient.dailySchedule.length > 0) {
+        patient.dailySchedule.forEach(slot => {
+          // Determine if this slot falls within the current shift
+          // Assuming AM shift is 07:00-15:00, PM is 14:00-22:00 (overlap?)
+          // For simplicity, we'll include it if it's relevant. 
+          // Ideally, we check slot.startTime against shift times.
+          
+          // Calculate duration
+          let duration = slot.durationMinutes;
+          if (!slot.isFixedDuration && slot.startTime && slot.endTime) {
+             const start = new Date(`1970-01-01T${slot.startTime}:00`);
+             const end = new Date(`1970-01-01T${slot.endTime}:00`);
+             duration = (end - start) / 60000; // minutes
+          }
+          if (!duration) duration = 30; // Default fallback
+
+          const complexity = patient.complexityScore || 1.0;
+          const adjustedDuration = Math.round(duration * complexity);
+          const activityNames = slot.activities.join(", ");
+
+          allTasks.push({
+            type: "PatientCare",
+            data: slot,
+            patient: patient,
+            priority: slot.isFixedDuration ? 3 : 1, // Fixed Duration = Flexible Time (3), Specific Time = Fixed (1)
+            duration: adjustedDuration,
+            baseDuration: duration,
+            complexity: complexity,
+            name: `${activityNames} for ${patient.name}`,
+            startTime: slot.startTime,
+            endTime: slot.endTime
+          });
+        });
+      }
     }
 
     // 3. Sort Tasks by Priority (1: Fixed Window, 2: Constraints, 3: Flexible)
     allTasks.sort((a, b) => a.priority - b.priority);
+
+    // Fallback ward for Global Tasks if staff has no preference
+    const fallbackWard = await Ward.findOne();
 
     // 4. Allocate Tasks
     const assignments = [];
@@ -110,6 +157,9 @@ export const dryRunAllocation = async (req, res) => {
         shift,
         staff: bestStaff.staff._id,
         staffName: bestStaff.staff.name,
+        staffRole: bestStaff.staff.role, // Pass role
+        employmentType: bestStaff.staff.employmentType, // Pass employment type
+        maxMinutes: bestStaff.staff.maxMinutesPerShift, // Pass max minutes
         minutesAllocated: task.duration,
         source: task.type
       };
@@ -117,12 +167,13 @@ export const dryRunAllocation = async (req, res) => {
       if (task.type === "GlobalTask") {
         assignment.globalTask = task.data._id;
         assignment.taskName = task.name;
-        assignment.ward = bestStaff.staff.preferredWard; // Placeholder
+        assignment.ward = bestStaff.staff.preferredWard || fallbackWard?._id;
       } else {
         assignment.patient = task.patient._id;
         assignment.patientName = task.patient.name;
         assignment.ward = task.patient.currentWard;
         assignment.taskName = task.name;
+        assignment.complexity = task.complexity; // Pass complexity
       }
 
       assignments.push(assignment);
