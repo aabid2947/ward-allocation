@@ -20,6 +20,18 @@ router.put("/:staffId/availability", updateAvailability);
 router.post("/:staffId/override", setAvailabilityOverride);
 router.put("/:staffId/active", toggleStaffActive);
 router.get("/fatigue-report", getFatigueReport);
+router.delete("/delete-all", async (req, res) => {
+  console.log(90) 
+  // WARNING: This route is for testing purposes only. Do not use in production.
+  const { Staff } = await import("../models/Staff.js");
+  try {
+    await Staff.deleteMany({});
+    res.status(200).json({ message: "All staff deleted." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+});
 
 export default router;
 

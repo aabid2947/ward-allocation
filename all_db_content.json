@@ -1,0 +1,111 @@
+{
+  "staff": [
+    {
+      "availability": {
+        "am": true,
+        "pm": true
+      },
+      "_id": "6950e48993f907177f42a738",
+      "name": "joker2947",
+      "role": "RN",
+      "employmentType": "PartTime",
+      "maxMinutesPerShift": 480,
+      "active": true,
+      "createdAt": "2025-12-28T08:04:25.882Z",
+      "updatedAt": "2025-12-28T08:04:25.882Z",
+      "__v": 0
+    }
+  ],
+  "patients": [
+    {
+      "_id": "6950e46593f907177f42a722",
+      "name": "Md Aabid Hussain",
+      "primaryCondition": "flu",
+      "careLevel": "Medium",
+      "mobilityLevel": "Independent",
+      "complexityScore": 1,
+      "admissionDate": "2025-12-28T00:00:00.000Z",
+      "status": "Admitted",
+      "additionalTime": 0,
+      "weeklyCares": [],
+      "dailySchedule": [
+        {
+          "startTime": "",
+          "endTime": "",
+          "isFixedDuration": true,
+          "durationMinutes": 12,
+          "activities": [
+            "Morning Cares",
+            "Afternoon Cares",
+            "Post Lunch Cares"
+          ],
+          "_id": "6950e46593f907177f42a723"
+        }
+      ],
+      "currentWard": "6950e42a93f907177f42a718",
+      "currentRoom": "6950e43493f907177f42a71c",
+      "createdAt": "2025-12-28T08:03:49.509Z",
+      "updatedAt": "2025-12-28T08:03:49.509Z",
+      "__v": 0
+    }
+  ],
+  "wards": [
+    {
+      "_id": "6950e42a93f907177f42a718",
+      "name": "test",
+      "wing": "East",
+      "subWing": "test-subwing",
+      "active": true,
+      "createdAt": "2025-12-28T08:02:50.496Z",
+      "updatedAt": "2025-12-28T08:02:50.496Z",
+      "__v": 0
+    }
+  ],
+  "tasks": [],
+  "shifts": [
+    {
+      "_id": "6950e48f93f907177f42a745",
+      "shiftDate": "2025-12-28T00:00:00.000Z",
+      "shift": "AM",
+      "staff": "6950e48993f907177f42a738",
+      "ward": "6950e42a93f907177f42a718",
+      "patient": "6950e46593f907177f42a722",
+      "globalTask": null,
+      "minutesAllocated": 12,
+      "source": "PatientCare",
+      "isManualOverride": false,
+      "__v": 0,
+      "createdAt": "2025-12-28T08:04:31.384Z",
+      "updatedAt": "2025-12-28T08:04:31.384Z"
+    }
+  ],
+  "shiftLocks": [
+    {
+      "_id": "6950e4c093f907177f42a74d",
+      "shiftDate": "2025-12-28T00:00:00.000Z",
+      "shift": "AM",
+      "lockedAt": "2025-12-28T08:05:20.039Z",
+      "createdAt": "2025-12-28T08:05:20.040Z",
+      "updatedAt": "2025-12-28T08:05:20.040Z",
+      "__v": 0
+    }
+  ],
+  "staffOverrides": [],
+  "rooms": [
+    {
+      "_id": "6950e43493f907177f42a71c",
+      "ward": "6950e42a93f907177f42a718",
+      "roomNumber": "testRoom",
+      "capacity": 10,
+      "type": "Standard",
+      "features": [],
+      "isDoubleRoom": false,
+      "active": true,
+      "createdAt": "2025-12-28T08:03:00.425Z",
+      "updatedAt": "2025-12-28T08:03:00.425Z",
+      "__v": 0
+    }
+  ],
+  "patientWardHistories": [],
+  "patientCareSchedules": []
+}

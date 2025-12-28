@@ -7,6 +7,16 @@ import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
 import { StaffOverride } from "../models/StaffOverride.js";
 import { Ward } from "../models/Ward.js";
 
+// Helper to parse duration strings like "15-20"
+const parseDuration = (durationStr) => {
+  if (!durationStr) return 0;
+  if (typeof durationStr === 'number') return durationStr;
+  const numbers = durationStr.match(/\d+/g);
+  if (!numbers) return 0;
+  // If "15-20", return 20 to be safe, or calculate average 
+  return Math.max(...numbers.map(Number)); 
+};
+
 // Helper to check if shift is locked
 const isShiftLocked = async (date, shift) => {
   const lock = await ShiftLock.findOne({ shiftDate: date, shift });
@@ -42,10 +52,41 @@ export const dryRunAllocation = async (req, res) => {
       return res.status(400).json({ message: "No staff available for this shift" });
     }
 
+    // --- Calculate Weekly Load for Balancing ---
+    const currentShiftDate = new Date(date);
+    const getStartOfWeek = (d) => {
+      const date = new Date(d);
+      const day = date.getDay();
+      const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+      const monday = new Date(date.setDate(diff));
+      monday.setHours(0,0,0,0);
+      return monday;
+    };
+    
+    const startOfWeek = getStartOfWeek(currentShiftDate);
+    
+    // Fetch assignments from start of week up to current date
+    const weeklyAssignments = await ShiftAssignment.find({
+      shiftDate: { $gte: startOfWeek, $lte: currentShiftDate }
+    });
+
+    const weeklyMinutesMap = {};
+    weeklyAssignments.forEach(a => {
+      // Exclude current shift being allocated
+      const isCurrentShift = a.shiftDate.toISOString().split('T')[0] === currentShiftDate.toISOString().split('T')[0] 
+                             && a.shift === shift;
+                             
+      if (!isCurrentShift) {
+        const sId = a.staff.toString();
+        weeklyMinutesMap[sId] = (weeklyMinutesMap[sId] || 0) + a.minutesAllocated;
+      }
+    });
+
     // Initialize Staff Load
     const staffLoad = availableStaff.map(s => ({
       staff: s,
       minutesAllocated: 0,
+      weeklyMinutes: weeklyMinutesMap[s._id.toString()] || 0,
       assignments: []
     }));
 
@@ -69,24 +110,58 @@ export const dryRunAllocation = async (req, res) => {
     const dayOfWeek = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
     
     for (const patient of patients) {
-      // 1. Legacy/Specific Schedules
-      const schedules = await PatientCareSchedule.find({ patient: patient._id, shift, dayOfWeek });
-      schedules.forEach(schedule => {
-        // Calculate adjusted duration based on complexity
-        const complexity = patient.complexityScore || 1.0;
-        const adjustedDuration = Math.round(schedule.durationMinutes * complexity);
+      // 0. Weekly Cares (New CSV Format)
+      const weeklyCare = patient.weeklyCares?.find(c => c.day === dayOfWeek);
+      if (weeklyCare) {
+        const durationStr = shift === "AM" ? weeklyCare.amDuration : weeklyCare.pmDuration;
+        let duration = parseDuration(durationStr);
+        
+        if (duration > 0) {
+           // Add additional time if specified
+           duration += (patient.additionalTime || 0);
 
-        allTasks.push({
-          type: "PatientCare",
-          data: schedule,
-          patient: patient,
-          priority: schedule.isFixedTime ? 1 : 3, // Assuming patient care is flexible unless fixed
-          duration: adjustedDuration,
-          baseDuration: schedule.durationMinutes,
-          complexity: complexity,
-          name: `${schedule.taskType} for ${patient.name}`
-        });
-      });
+           // Determine staff needed
+           let staffNeeded = "1staff";
+           if (patient.mobilityAid && (patient.mobilityAid.includes("HOIST") || patient.mobilityAid.includes("1-2"))) {
+             staffNeeded = "1-2staff";
+           }
+
+           const complexity = patient.complexityScore || 1.0;
+           const adjustedDuration = Math.round(duration * complexity);
+
+           allTasks.push({
+             type: "PatientCare",
+             data: weeklyCare,
+             patient: patient,
+             priority: weeklyCare.specialTime ? 1 : 3, // Prioritize if special time is set
+             duration: adjustedDuration,
+             baseDuration: duration,
+             complexity: complexity,
+             name: `Base Care for ${patient.name}`,
+             staffNeeded: staffNeeded,
+             specialTime: weeklyCare.specialTime
+           });
+        }
+      }
+
+      // 1. Legacy/Specific Schedules (IGNORED)
+      // const schedules = await PatientCareSchedule.find({ patient: patient._id, shift, dayOfWeek });
+      // schedules.forEach(schedule => {
+      //   // Calculate adjusted duration based on complexity
+      //   const complexity = patient.complexityScore || 1.0;
+      //   const adjustedDuration = Math.round(schedule.durationMinutes * complexity);
+
+      //   allTasks.push({
+      //     type: "PatientCare",
+      //     data: schedule,
+      //     patient: patient,
+      //     priority: schedule.isFixedTime ? 1 : 3, // Assuming patient care is flexible unless fixed
+      //     duration: adjustedDuration,
+      //     baseDuration: schedule.durationMinutes,
+      //     complexity: complexity,
+      //     name: `${schedule.taskType} for ${patient.name}`
+      //   });
+      // });
 
       // 2. New Daily Schedule Slots
       if (patient.dailySchedule && patient.dailySchedule.length > 0) {
@@ -134,52 +209,59 @@ export const dryRunAllocation = async (req, res) => {
     // 4. Allocate Tasks
     const assignments = [];
 
-    for (const task of allTasks) {
-      // Find best staff member (Least loaded AND within max minutes)
-      // In a real engine, we'd check time overlaps for fixed windows here.
-      
-      // Filter staff who have capacity
+    const allocateTaskToStaff = (task, duration, role = "Primary") => {
+       // Find best staff member (Least loaded AND within max minutes)
       const capableStaff = staffLoad.filter(s => 
-        s.minutesAllocated + task.duration <= s.staff.maxMinutesPerShift
+        s.minutesAllocated + duration <= s.staff.maxMinutesPerShift
       );
 
-      // If no one has capacity, we might need to over-allocate or flag it.
-      // For now, let's fallback to all staff but prioritize those with capacity.
       const candidatePool = capableStaff.length > 0 ? capableStaff : staffLoad;
-
-      candidatePool.sort((a, b) => a.minutesAllocated - b.minutesAllocated);
+      
+      // Sort by Total Weekly Load (Historical + Current) to ensure even distribution
+      candidatePool.sort((a, b) => {
+         const loadA = a.weeklyMinutes + a.minutesAllocated;
+         const loadB = b.weeklyMinutes + b.minutesAllocated;
+         return loadA - loadB;
+      });
+      
       const bestStaff = candidatePool[0];
 
-      bestStaff.minutesAllocated += task.duration;
-      
-      const assignment = {
-        shiftDate: date,
-        shift,
-        staff: bestStaff.staff._id,
-        staffName: bestStaff.staff.name,
-        staffRole: bestStaff.staff.role, // Pass role
-        employmentType: bestStaff.staff.employmentType, // Pass employment type
-        maxMinutes: bestStaff.staff.maxMinutesPerShift, // Pass max minutes
-        minutesAllocated: task.duration,
-        source: task.type
-      };
+      if (bestStaff) {
+        bestStaff.minutesAllocated += duration;
+        
+        const assignment = {
+          shiftDate: date,
+          shift: shift,
+          staff: bestStaff.staff._id,
+          staffName: bestStaff.staff.name,
+          ward: task.patient ? task.patient.currentWard : (task.data.ward || fallbackWard._id),
+          patient: task.patient ? task.patient._id : null,
+          globalTask: task.type === "GlobalTask" ? task.data._id : null,
+          minutesAllocated: duration,
+          source: task.type,
+          isManualOverride: false,
+          taskName: task.name + (role === "Secondary" ? " (Assist)" : "")
+        };
 
-      if (task.type === "GlobalTask") {
-        assignment.globalTask = task.data._id;
-        assignment.taskName = task.name;
-        assignment.ward = bestStaff.staff.preferredWard || fallbackWard?._id;
-      } else {
-        assignment.patient = task.patient._id;
-        assignment.patientName = task.patient.name;
-        assignment.ward = task.patient.currentWard;
-        assignment.taskName = task.name;
-        assignment.complexity = task.complexity; // Pass complexity
+        bestStaff.assignments.push(assignment);
+        assignments.push(assignment);
       }
+    };
 
-      assignments.push(assignment);
-      bestStaff.assignments.push(assignment);
+    for (const task of allTasks) {
+      if (task.staffNeeded === "1-2staff") {
+        // 1. Assign primary carer for the full duration
+        allocateTaskToStaff(task, task.duration, "Primary");
+        
+        // 2. Assign a second staff member for exactly 5 minutes (Transfer Assistance)
+        allocateTaskToStaff(task, 5, "Secondary");
+      } else {
+        // Standard allocation
+        allocateTaskToStaff(task, task.duration);
+      }
     }
 
+    // Return the plan
     res.status(200).json(assignments);
 
 

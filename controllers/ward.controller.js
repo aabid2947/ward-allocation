@@ -3,6 +3,7 @@ import { Room } from "../models/Room.js";
 import { Patient } from "../models/Patient.js";
 import { PatientWardHistory } from "../models/PatientWardHistory.js";
 import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
+import { ShiftAssignment } from "../models/ShiftAssignment.js";
 
 // Get all wards with their rooms
 export const getWards = async (req, res) => {
@@ -219,6 +220,110 @@ export const getMovementHistory = async (req, res) => {
       .populate("room")
       .sort({ fromDate: -1 });
     res.status(200).json(history);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get Ward Details (Full Schedule View)
+export const getWardDetails = async (req, res) => {
+  const { id } = req.params;
+  const { date } = req.query;
+
+  try {
+    const ward = await Ward.findById(id);
+    if (!ward) return res.status(404).json({ message: "Ward not found" });
+
+    const rooms = await Room.find({ ward: id });
+    
+    // Fetch assignments if date is provided
+    let assignments = [];
+    if (date) {
+       // Ensure we match the date correctly (ignoring time if needed, but usually exact match on YYYY-MM-DD stored as Date)
+       // Assuming shiftDate is stored as UTC midnight or similar. 
+       // Ideally we query by range or exact match. 
+       // Let's assume exact match for now or simple day match.
+       const queryDate = new Date(date);
+       assignments = await ShiftAssignment.find({
+         ward: id,
+         shiftDate: queryDate
+       }).populate('staff');
+    }
+
+    const roomSchedules = [];
+
+    for (const room of rooms) {
+      const patients = await Patient.find({ currentRoom: room._id, status: "Admitted" });
+      
+      for (const patient of patients) {
+        // Find assignments for this patient
+        const patientAssignments = assignments.filter(a => 
+          a.patient && a.patient.toString() === patient._id.toString()
+        );
+        
+        const assignedStaffAM = patientAssignments.filter(a => a.shift === "AM").map(a => a.staff?.name).join(", ");
+        const assignedStaffPM = patientAssignments.filter(a => a.shift === "PM").map(a => a.staff?.name).join(", ");
+
+        // Get Schedules (Legacy - Ignored for now)
+        // const schedules = await PatientCareSchedule.find({ patient: patient._id });
+        
+        // Construct the row
+        const row = {
+          roomNo: room.roomNumber,
+          patientName: patient.name,
+          wardId: ward, 
+          additionalTime: patient.additionalTime,
+          complexity: patient.complexityScore,
+          staffNeeded: patient.mobilityAid && (patient.mobilityAid.includes("HOIST") || patient.mobilityAid.includes("1-2")) ? "1-2 Staff" : "1 Staff",
+          assignedStaff: { AM: assignedStaffAM, PM: assignedStaffPM },
+          acuityLevel: patient.acuityLevel,
+          mobilityAid: patient.mobilityAid,
+          tasksTiming: "", 
+        };
+
+        // Populate days
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        days.forEach(day => {
+           const dayKey = day.toLowerCase();
+           
+           // 1. Weekly Cares
+           const weekly = patient.weeklyCares?.find(c => c.day === day);
+           
+           // 2. Specific Schedules (Legacy - Ignored)
+           // const daySchedules = schedules.filter(s => s.dayOfWeek === day);
+           
+           // Combine them
+           const combined = [];
+           if (weekly) {
+             if (weekly.amDuration) combined.push({ taskType: "AM Care", durationMinutes: weekly.amDuration, shift: "AM", specialTime: weekly.specialTime });
+             if (weekly.pmDuration) combined.push({ taskType: "PM Care", durationMinutes: weekly.pmDuration, shift: "PM" });
+           }
+           // daySchedules.forEach(s => combined.push(s));
+
+           // 3. Daily Schedule (New)
+           if (patient.dailySchedule) {
+             patient.dailySchedule.forEach(ds => {
+               const startHour = ds.startTime ? parseInt(ds.startTime.split(':')[0]) : 8;
+               const shift = startHour < 14 ? "AM" : "PM";
+               
+               combined.push({
+                 taskType: ds.activities.join(", "),
+                 startTime: ds.startTime,
+                 endTime: ds.endTime,
+                 durationMinutes: ds.durationMinutes,
+                 shift: shift
+               });
+             });
+           }
+           
+           row[dayKey] = combined;
+        });
+
+        roomSchedules.push(row);
+      }
+    }
+
+    res.status(200).json({ ward, roomSchedules });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

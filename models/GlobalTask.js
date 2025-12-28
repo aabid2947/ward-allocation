@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const GlobalTaskSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  category: { type: String }, // e.g., "Trolley", "Feeding", "Cleaning"
   durationMinutes: { type: Number, required: true },
   requiredStaff: { type: Number, required: true },
   shift: { type: String, enum: ["AM", "PM"], required: true },

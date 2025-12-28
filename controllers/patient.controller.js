@@ -3,6 +3,51 @@ import { Room } from "../models/Room.js";
 import { Ward } from "../models/Ward.js";
 import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
 
+// Helper: Process daily schedule to determine shift
+const processDailySchedule = (scheduleItems) => {
+  if (!Array.isArray(scheduleItems)) return [];
+  
+  return scheduleItems.map(item => {
+    let shift = item.shift;
+    
+    // If timing is given (not fixed duration), decide AM/PM based on start time
+    if (!item.isFixedDuration && item.startTime) {
+      const hour = parseInt(item.startTime.split(':')[0], 10);
+      // Cutoff: 13:00 (1 PM) starts PM shift. So < 13 is AM.
+      shift = hour < 13 ? 'AM' : 'PM';
+    }
+    
+    // If fixed duration, shift should be provided. If not, we can't infer it easily.
+    // We'll leave it as is, or default if needed.
+    
+    return {
+      ...item,
+      shift
+    };
+  });
+};
+
+// Helper: Map frontend 'slots' to 'dailySchedule' structure
+const mapSlotsToSchedule = (slots) => {
+  if (!Array.isArray(slots)) return [];
+  return slots.map(slot => {
+    const activities = [];
+    if (slot.isMorningCares) activities.push("Morning Cares");
+    if (slot.isPostLunchCares) activities.push("Post Lunch Cares");
+    if (slot.isAfternoonCares) activities.push("Afternoon Cares");
+    if (slot.isToileting) activities.push("Toileting");
+    
+    return {
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+      isFixedDuration: slot.isFixedDuration,
+      durationMinutes: slot.duration ? parseInt(slot.duration) : undefined,
+      shift: slot.shift, 
+      activities
+    };
+  });
+};
+
 // Get all patients
 export const getPatients = async (req, res) => {
 
@@ -18,18 +63,31 @@ export const getPatients = async (req, res) => {
 
 // Create a new patient (Admit Patient)
 export const admitPatient = async (req, res) => {
-  const { 
+  let { 
     name, primaryCondition, careLevel, mobilityLevel, complexityScore, 
     admissionDate, currentWard, currentRoom,
-    schedules, // Legacy: Array of { dayOfWeek, shift, taskType, durationMinutes, ... }
-    dailySchedule // New: Array of { startTime, endTime, isFixedDuration, activities }
+    mobilityAid, acuityLevel, additionalTime, weeklyCares, 
+    schedules, 
+    dailySchedule,
+    slots // Frontend might send this
   } = req.body;
 
   try {
+    // Handle slots -> dailySchedule mapping if dailySchedule is missing
+    if (!dailySchedule && slots) {
+      dailySchedule = mapSlotsToSchedule(slots);
+    }
+
+    // Process schedule to assign shifts
+    if (dailySchedule) {
+      dailySchedule = processDailySchedule(dailySchedule);
+    }
+
     // 1. Create Patient
     const newPatient = new Patient({
       name, primaryCondition, careLevel, mobilityLevel, complexityScore,
       admissionDate, currentWard, currentRoom,
+      mobilityAid, acuityLevel, additionalTime, weeklyCares: weeklyCares || [],
       dailySchedule: dailySchedule || []
     });
     await newPatient.save();
@@ -52,8 +110,21 @@ export const admitPatient = async (req, res) => {
 // Update Patient
 export const updatePatient = async (req, res) => {
   const { id } = req.params;
+  let updateData = { ...req.body };
+
   try {
-    const updatedPatient = await Patient.findByIdAndUpdate(id, req.body, { new: true });
+    // Handle slots -> dailySchedule mapping
+    if (!updateData.dailySchedule && updateData.slots) {
+      updateData.dailySchedule = mapSlotsToSchedule(updateData.slots);
+      delete updateData.slots; // Clean up
+    }
+
+    // Process schedule
+    if (updateData.dailySchedule) {
+      updateData.dailySchedule = processDailySchedule(updateData.dailySchedule);
+    }
+
+    const updatedPatient = await Patient.findByIdAndUpdate(id, updateData, { new: true });
     if (!updatedPatient) return res.status(404).json({ message: "Patient not found" });
     res.status(200).json(updatedPatient);
   } catch (error) {

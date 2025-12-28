@@ -95,3 +95,37 @@ export const updateSystemConstraints = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+const parseDuration = (durationStr) => {
+  if (!durationStr) return 0;
+  if (typeof durationStr === 'number') return durationStr;
+  const numbers = durationStr.match(/\d+/g);
+  if (!numbers) return 0;
+  return Math.max(...numbers.map(Number)); 
+};
+
+export const getWeeklyWorkload = async (req, res) => {
+  try {
+    const patients = await Patient.find({ status: "Admitted" }).populate('currentWard');
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    
+    const report = days.map(day => {
+      let eastTotal = 0;
+      let westTotal = 0;
+      
+      patients.forEach(p => {
+        const care = p.weeklyCares?.find(c => c.day === day);
+        const duration = parseDuration(care?.amDuration) + parseDuration(care?.pmDuration);
+        
+        if (p.currentWard && p.currentWard.wing === "East") eastTotal += duration;
+        else if (p.currentWard && p.currentWard.wing === "West") westTotal += duration;
+      });
+      
+      return { day, eastTotal, westTotal };
+    });
+    
+    res.status(200).json(report);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

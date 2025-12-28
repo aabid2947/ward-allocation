@@ -21,11 +21,23 @@ const PatientSchema = new mongoose.Schema({
     enum: ["Admitted", "OnLeave", "Transferred", "Discharged"],
     default: "Admitted"
   },
+  mobilityAid: { type: String }, // e.g., "LWF", "WC", "S.HOIST"
+  acuityLevel: { type: String }, // e.g., "High", "Low"
+  additionalTime: { type: Number, default: 0 }, // Extra minutes per shift
+  
+  // Weekly grid for base cares (to match the Mon-Sun columns)
+  weeklyCares: [{
+    day: { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] },
+    amDuration: { type: String }, // Stored as string to handle "15-20"
+    pmDuration: { type: String },
+    specialTime: { type: String }  // e.g., "8:40-9am"
+  }],
   dailySchedule: [{
     startTime: String, // "HH:mm"
     endTime: String,   // "HH:mm"
     isFixedDuration: { type: Boolean, default: false },
     durationMinutes: Number,
+    shift: { type: String, enum: ["AM", "PM"] }, // Derived from time or explicitly set
     activities: [{ type: String }] // e.g. ["Morning Cares", "Toileting"]
   }],
   currentWard: { type: mongoose.Schema.Types.ObjectId, ref: "Ward", required: true },
