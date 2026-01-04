@@ -1,6 +1,7 @@
 import { Ward } from "../models/Ward.js";
 import { Room } from "../models/Room.js";
 import { Patient } from "../models/Patient.js";
+import { Staff } from "../models/Staff.js";
 import { PatientWardHistory } from "../models/PatientWardHistory.js";
 import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
 import { ShiftAssignment } from "../models/ShiftAssignment.js";
@@ -8,7 +9,7 @@ import { ShiftAssignment } from "../models/ShiftAssignment.js";
 // Get all wards with their rooms
 export const getWards = async (req, res) => {
   try {
-    const wards = await Ward.find().lean();
+    const wards = await Ward.find().populate('staff').lean();
     const rooms = await Room.find({ active: true }).lean();
 
     const wardsWithRooms = wards.map(ward => ({
@@ -234,8 +235,6 @@ export const getWardDetails = async (req, res) => {
     const ward = await Ward.findById(id);
     if (!ward) return res.status(404).json({ message: "Ward not found" });
 
-    const rooms = await Room.find({ ward: id });
-    
     // Fetch assignments if date is provided
     let assignments = [];
     if (date) {
@@ -250,12 +249,15 @@ export const getWardDetails = async (req, res) => {
        }).populate('staff');
     }
 
+    const patients = await Patient.find({ currentWard: id, status: "Admitted" }).populate('currentRoom');
     const roomSchedules = [];
 
-    for (const room of rooms) {
-      const patients = await Patient.find({ currentRoom: room._id, status: "Admitted" });
-      
-      for (const patient of patients) {
+    // Determine day of week for calculation
+    const queryDate = date ? new Date(date) : new Date();
+    const dayName = queryDate.toLocaleDateString('en-US', { weekday: 'long' });
+
+    for (const patient of patients) {
+      const room = patient.currentRoom || { roomNumber: "Unassigned" };
         // Find assignments for this patient
         const patientAssignments = assignments.filter(a => 
           a.patient && a.patient.toString() === patient._id.toString()
@@ -264,21 +266,55 @@ export const getWardDetails = async (req, res) => {
         const assignedStaffAM = patientAssignments.filter(a => a.shift === "AM").map(a => a.staff?.name).join(", ");
         const assignedStaffPM = patientAssignments.filter(a => a.shift === "PM").map(a => a.staff?.name).join(", ");
 
-        // Get Schedules (Legacy - Ignored for now)
-        // const schedules = await PatientCareSchedule.find({ patient: patient._id });
-        
+        // Calculate AM/PM Time Needed for the specific day
+        let amTimeNeeded = 0;
+        let pmTimeNeeded = 0;
+
+        // 1. Weekly Cares
+        const weekly = patient.weeklyCares?.find(c => c.day === dayName);
+        if (weekly) {
+            amTimeNeeded += parseInt(weekly.amDuration || 0);
+            pmTimeNeeded += parseInt(weekly.pmDuration || 0);
+        }
+
+        // 2. Daily Schedule
+        if (patient.dailySchedule) {
+            patient.dailySchedule.forEach(ds => {
+                let duration = 0;
+                let shift = 'AM';
+
+                if (ds.isFixedDuration) {
+                    duration = parseInt(ds.durationMinutes || 0);
+                    shift = ds.shift || 'AM';
+                } else if (ds.startTime && ds.endTime) {
+                    const [startH, startM] = ds.startTime.split(':').map(Number);
+                    const [endH, endM] = ds.endTime.split(':').map(Number);
+                    const startMin = startH * 60 + startM;
+                    const endMin = endH * 60 + endM;
+                    duration = endMin - startMin;
+                    shift = startH < 13 ? 'AM' : 'PM';
+                }
+
+                if (shift === 'AM') amTimeNeeded += duration;
+                else pmTimeNeeded += duration;
+            });
+        }
+
         // Construct the row
         const row = {
+          _id: patient._id, // Added ID for linking
           roomNo: room.roomNumber,
           patientName: patient.name,
           wardId: ward, 
           additionalTime: patient.additionalTime,
           complexity: patient.complexityScore,
-          staffNeeded: patient.mobilityAid && (patient.mobilityAid.includes("HOIST") || patient.mobilityAid.includes("1-2")) ? "1-2 Staff" : "1 Staff",
+          staffNeeded: patient.noOfStaffRequired ? `${patient.noOfStaffRequired} Staff` : (patient.mobilityAid && (patient.mobilityAid.includes("HOIST") || patient.mobilityAid.includes("1-2")) ? "1-2 Staff" : "1 Staff"),
           assignedStaff: { AM: assignedStaffAM, PM: assignedStaffPM },
           acuityLevel: patient.acuityLevel,
           mobilityAid: patient.mobilityAid,
-          tasksTiming: "", 
+          tasksTiming: "",
+          amTimeNeeded, // Added
+          pmTimeNeeded  // Added
         };
 
         // Populate days
@@ -320,7 +356,6 @@ export const getWardDetails = async (req, res) => {
         });
 
         roomSchedules.push(row);
-      }
     }
 
     res.status(200).json({ ward, roomSchedules });
@@ -369,6 +404,68 @@ export const moveResident = async (req, res) => {
     await patient.save();
 
     res.status(200).json({ message: "Resident moved successfully", history });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Assign Staff to Ward
+export const assignStaffToWard = async (req, res) => {
+  const { wardId } = req.params;
+  const { staffId } = req.body;
+
+  try {
+    const ward = await Ward.findById(wardId);
+    if (!ward) return res.status(404).json({ message: "Ward not found" });
+
+    const staff = await Staff.findById(staffId);
+    if (!staff) return res.status(404).json({ message: "Staff not found" });
+
+    // If staff is already assigned to another ward, remove them from there first
+    if (staff.assignedWard && staff.assignedWard.toString() !== wardId) {
+      await Ward.findByIdAndUpdate(staff.assignedWard, {
+        $pull: { staff: staffId }
+      });
+    }
+
+    // Update Staff
+    staff.assignedWard = wardId;
+    await staff.save();
+
+    // Update Ward (add if not exists)
+    if (!ward.staff.includes(staffId)) {
+      ward.staff.push(staffId);
+      await ward.save();
+    }
+
+    res.status(200).json({ message: "Staff assigned to ward successfully", ward, staff });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Remove Staff from Ward
+export const removeStaffFromWard = async (req, res) => {
+  const { wardId, staffId } = req.params;
+
+  try {
+    const ward = await Ward.findById(wardId);
+    if (!ward) return res.status(404).json({ message: "Ward not found" });
+
+    const staff = await Staff.findById(staffId);
+    if (!staff) return res.status(404).json({ message: "Staff not found" });
+
+    // Update Ward
+    ward.staff = ward.staff.filter(id => id.toString() !== staffId);
+    await ward.save();
+
+    // Update Staff
+    if (staff.assignedWard && staff.assignedWard.toString() === wardId) {
+      staff.assignedWard = null;
+      await staff.save();
+    }
+
+    res.status(200).json({ message: "Staff removed from ward successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -1,0 +1,92 @@
+[
+  {
+    "availability": {
+      "am": true,
+      "pm": true
+    },
+    "_id": "6950f93746cd787d8b6f8a96",
+    "name": "test",
+    "role": "RN",
+    "employmentType": "FullTime",
+    "maxMinutesPerShift": 480,
+    "active": true,
+    "createdAt": "2025-12-28T09:32:39.877Z",
+    "updatedAt": "2025-12-28T09:32:39.877Z",
+    "__v": 0
+  },
+  {
+    "availability": {
+      "am": true,
+      "pm": true
+    },
+    "_id": "6951183a3a8b11312c47bf1a",
+    "name": "teststaff",
+    "role": "RN",
+    "employmentType": "FullTime",
+    "maxMinutesPerShift": 480,
+    "active": true,
+    "createdAt": "2025-12-28T11:44:58.076Z",
+    "updatedAt": "2025-12-28T11:44:58.076Z",
+    "__v": 0
+  },
+  {
+    "availability": {
+      "am": true,
+      "pm": true
+    },
+    "_id": "695392daf085be0b2bda501e",
+    "name": "HCA 1",
+    "role": "HCA",
+    "employmentType": "FullTime",
+    "maxMinutesPerShift": 60,
+    "active": true,
+    "createdAt": "2025-12-30T08:52:42.954Z",
+    "updatedAt": "2025-12-30T08:52:42.954Z",
+    "__v": 0
+  },
+  {
+    "availability": {
+      "am": true,
+      "pm": true
+    },
+    "_id": "6953931ef085be0b2bda5025",
+    "name": "HCA 2",
+    "role": "HCA",
+    "employmentType": "FullTime",
+    "maxMinutesPerShift": 400,
+    "active": true,
+    "createdAt": "2025-12-30T08:53:50.723Z",
+    "updatedAt": "2025-12-30T08:53:50.723Z",
+    "__v": 0
+  },
+  {
+    "availability": {
+      "am": true,
+      "pm": true
+    },
+    "_id": "69547ba5631ee679f5469eba",
+    "name": "HCA 3",
+    "role": "HCA",
+    "employmentType": "FullTime",
+    "maxMinutesPerShift": 480,
+    "active": true,
+    "createdAt": "2025-12-31T01:25:57.956Z",
+    "updatedAt": "2025-12-31T01:25:57.956Z",
+    "__v": 0
+  },
+  {
+    "availability": {
+      "am": true,
+      "pm": true
+    },
+    "_id": "69547bcf631ee679f5469eed",
+    "name": "HCA 4",
+    "role": "HCA",
+    "employmentType": "FullTime",
+    "maxMinutesPerShift": 480,
+    "active": true,
+    "createdAt": "2025-12-31T01:26:39.615Z",
+    "updatedAt": "2025-12-31T01:26:39.615Z",
+    "__v": 0
+  }
+]

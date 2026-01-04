@@ -7,7 +7,9 @@ import {
   getFatigueReport,
   updateAvailability,
   getAvailableStaff,
-  getStaffAssignments
+  getStaffAssignments,
+  updateStaff,
+  deleteStaff
 } from "../controllers/staff.controller.js";
 
 const router = express.Router();
@@ -15,6 +17,8 @@ const router = express.Router();
 router.get("/", getStaff);
 router.get("/assignments", getStaffAssignments);
 router.post("/", createStaff);
+router.put("/:staffId", updateStaff);
+router.delete("/:staffId", deleteStaff);
 router.get("/available", getAvailableStaff);
 router.put("/:staffId/availability", updateAvailability);
 router.post("/:staffId/override", setAvailabilityOverride);

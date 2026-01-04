@@ -1,0 +1,62 @@
+{
+  "request": {
+    "date": "2026-01-02",
+    "shift": "AM",
+    "timestamp": "2026-01-02T09:38:32.064Z"
+  },
+  "staffFiltering": [
+    {
+      "staffName": "test",
+      "decision": "Available",
+      "status": true
+    },
+    {
+      "staffName": "teststaff",
+      "decision": "Available",
+      "status": true
+    },
+    {
+      "staffName": "HCA 1",
+      "decision": "Available",
+      "status": true
+    },
+    {
+      "staffName": "HCA 2",
+      "decision": "Available",
+      "status": true
+    },
+    {
+      "staffName": "HCA 3",
+      "decision": "Available",
+      "status": true
+    },
+    {
+      "staffName": "HCA 4",
+      "decision": "Available",
+      "status": true
+    }
+  ],
+  "wardAllocations": {
+    "East Wing": {
+      "staffPool": [
+        "test",
+        "teststaff",
+        "HCA 2"
+      ],
+      "tasksCollected": [],
+      "sortedQueue": [],
+      "steps": []
+    },
+    "West Wing": {
+      "staffPool": [
+        "HCA 1",
+        "HCA 3",
+        "HCA 4"
+      ],
+      "tasksCollected": [],
+      "sortedQueue": [],
+      "steps": []
+    }
+  },
+  "errors": []
+}

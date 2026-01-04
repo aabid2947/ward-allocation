@@ -1,0 +1,284 @@
+[
+  {
+    "_id": "69562b78192ee7f8a134d7ec",
+    "name": "Md Aabid Hussain",
+    "primaryCondition": "flu",
+    "careLevel": "Medium",
+    "mobilityLevel": "WalkingFrame",
+    "complexityScore": 1,
+    "admissionDate": "2026-01-01T00:00:00.000Z",
+    "status": "Admitted",
+    "mobilityAid": "LWF",
+    "acuityLevel": "Low",
+    "additionalTime": 0,
+    "weeklyCares": [
+      {
+        "day": "Monday",
+        "amDuration": "15",
+        "pmDuration": "15",
+        "specialTime": "",
+        "_id": "69562b78192ee7f8a134d7ed"
+      },
+      {
+        "day": "Tuesday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562b78192ee7f8a134d7ee"
+      },
+      {
+        "day": "Wednesday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562b78192ee7f8a134d7ef"
+      },
+      {
+        "day": "Thursday",
+        "amDuration": "15",
+        "pmDuration": "15",
+        "specialTime": "",
+        "_id": "69562b78192ee7f8a134d7f0"
+      },
+      {
+        "day": "Friday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562b78192ee7f8a134d7f1"
+      },
+      {
+        "day": "Saturday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562b78192ee7f8a134d7f2"
+      },
+      {
+        "day": "Sunday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562b78192ee7f8a134d7f3"
+      }
+    ],
+    "dailySchedule": [
+      {
+        "startTime": "",
+        "endTime": "",
+        "isFixedDuration": true,
+        "durationMinutes": 15,
+        "shift": "AM",
+        "activities": [
+          "Morning Cares",
+          "Toileting"
+        ],
+        "_id": "69562b78192ee7f8a134d7f4"
+      },
+      {
+        "startTime": "16:41",
+        "endTime": "16:53",
+        "isFixedDuration": false,
+        "shift": "PM",
+        "activities": [
+          "Post Lunch Cares",
+          "Afternoon Cares"
+        ],
+        "_id": "69562b78192ee7f8a134d7f5"
+      }
+    ],
+    "currentWard": "6950f91946cd787d8b6f8a89",
+    "currentRoom": "69538b9dd95ee6bab8fb42d3",
+    "createdAt": "2026-01-01T08:08:24.967Z",
+    "updatedAt": "2026-01-01T08:08:24.967Z",
+    "__v": 0
+  },
+  {
+    "_id": "69562d94fc9e9e6cd18c8e24",
+    "name": "Aadil Hussain",
+    "primaryCondition": "flu",
+    "careLevel": "Medium",
+    "mobilityLevel": "WalkingFrame",
+    "complexityScore": 1.5,
+    "admissionDate": "2026-01-01T00:00:00.000Z",
+    "status": "Admitted",
+    "mobilityAid": "LWF",
+    "acuityLevel": "Medium",
+    "additionalTime": 0,
+    "weeklyCares": [
+      {
+        "day": "Monday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562d94fc9e9e6cd18c8e25"
+      },
+      {
+        "day": "Tuesday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562d94fc9e9e6cd18c8e26"
+      },
+      {
+        "day": "Wednesday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562d94fc9e9e6cd18c8e27"
+      },
+      {
+        "day": "Thursday",
+        "amDuration": "15",
+        "pmDuration": "30",
+        "specialTime": "",
+        "_id": "69562d94fc9e9e6cd18c8e28"
+      },
+      {
+        "day": "Friday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562d94fc9e9e6cd18c8e29"
+      },
+      {
+        "day": "Saturday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562d94fc9e9e6cd18c8e2a"
+      },
+      {
+        "day": "Sunday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562d94fc9e9e6cd18c8e2b"
+      }
+    ],
+    "dailySchedule": [
+      {
+        "startTime": "",
+        "endTime": "",
+        "isFixedDuration": true,
+        "durationMinutes": 15,
+        "shift": "PM",
+        "activities": [
+          "Post Lunch Cares",
+          "Afternoon Cares"
+        ],
+        "_id": "69562d94fc9e9e6cd18c8e2c"
+      },
+      {
+        "startTime": "22:50",
+        "endTime": "23:00",
+        "isFixedDuration": false,
+        "shift": "PM",
+        "activities": [
+          "Morning Cares",
+          "Toileting"
+        ],
+        "_id": "69562d94fc9e9e6cd18c8e2d"
+      }
+    ],
+    "currentWard": "69538d50223c535a69a4b7ee",
+    "currentRoom": "69538d60223c535a69a4b7f2",
+    "createdAt": "2026-01-01T08:17:24.180Z",
+    "updatedAt": "2026-01-01T08:17:24.180Z",
+    "__v": 0
+  },
+  {
+    "_id": "69562e297d74969ecc3505d2",
+    "name": "convex",
+    "primaryCondition": "flu",
+    "careLevel": "Medium",
+    "mobilityLevel": "WalkingFrame",
+    "complexityScore": 2,
+    "admissionDate": "2026-01-01T00:00:00.000Z",
+    "status": "Admitted",
+    "mobilityAid": "LWF",
+    "acuityLevel": "Medium",
+    "additionalTime": 0,
+    "weeklyCares": [
+      {
+        "day": "Monday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562e297d74969ecc3505d3"
+      },
+      {
+        "day": "Tuesday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562e297d74969ecc3505d4"
+      },
+      {
+        "day": "Wednesday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562e297d74969ecc3505d5"
+      },
+      {
+        "day": "Thursday",
+        "amDuration": "15",
+        "pmDuration": "30",
+        "specialTime": "",
+        "_id": "69562e297d74969ecc3505d6"
+      },
+      {
+        "day": "Friday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562e297d74969ecc3505d7"
+      },
+      {
+        "day": "Saturday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562e297d74969ecc3505d8"
+      },
+      {
+        "day": "Sunday",
+        "amDuration": "",
+        "pmDuration": "",
+        "specialTime": "",
+        "_id": "69562e297d74969ecc3505d9"
+      }
+    ],
+    "dailySchedule": [
+      {
+        "startTime": "",
+        "endTime": "",
+        "isFixedDuration": true,
+        "durationMinutes": 15,
+        "shift": "AM",
+        "activities": [
+          "Toileting",
+          "Morning Cares"
+        ],
+        "_id": "69562e297d74969ecc3505da"
+      },
+      {
+        "startTime": "16:50",
+        "endTime": "17:00",
+        "isFixedDuration": false,
+        "shift": "PM",
+        "activities": [
+          "Afternoon Cares",
+          "Post Lunch Cares"
+        ],
+        "_id": "69562e297d74969ecc3505db"
+      }
+    ],
+    "currentWard": "69538d50223c535a69a4b7ee",
+    "currentRoom": "69538d64223c535a69a4b7f6",
+    "createdAt": "2026-01-01T08:19:53.872Z",
+    "updatedAt": "2026-01-01T08:19:53.872Z",
+    "__v": 0
+  }
+]

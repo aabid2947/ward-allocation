@@ -3,12 +3,14 @@ import {
   getFacilityOverview,
   configureRooms,
   updateSystemConstraints,
-  getWeeklyWorkload
+  getWeeklyWorkload,
+  getDetailedFacilityOverview
 } from "../controllers/settings.controller.js";
 
 const router = express.Router();
 
 router.get("/overview", getFacilityOverview);
+router.get("/detailed-overview", getDetailedFacilityOverview);
 router.get("/weekly-workload", getWeeklyWorkload);
 router.post("/configure-rooms", configureRooms);
 router.put("/constraints", updateSystemConstraints);

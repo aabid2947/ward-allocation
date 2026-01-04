@@ -11,7 +11,9 @@ import {
   getWardControlCenter,
   getOccupancyStats,
   getMovementHistory,
-  getWardDetails
+  getWardDetails,
+  assignStaffToWard,
+  removeStaffFromWard
 } from "../controllers/ward.controller.js";
 
 const router = express.Router();
@@ -20,6 +22,8 @@ router.get("/", getWards);
 router.get("/:id", getWardDetails); // Specific ward details
 router.post("/", createWard);
 router.put("/:id", updateWard);
+router.post("/:wardId/staff", assignStaffToWard);
+router.delete("/:wardId/staff/:staffId", removeStaffFromWard);
 router.post("/rooms", createRoom);
 router.put("/rooms/:id", updateRoom);
 router.delete("/rooms/:id", deleteRoom);

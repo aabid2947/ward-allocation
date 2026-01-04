@@ -2,6 +2,8 @@ import express from "express";
 import {
   getGlobalTasks,
   createGlobalTask,
+  updateGlobalTask,
+  deleteGlobalTask,
   getPatientCareSchedules,
   createPatientCareSchedule,
   setPatientSchedule,
@@ -12,6 +14,8 @@ const router = express.Router();
 
 router.get("/global", getGlobalTasks);
 router.post("/global", createGlobalTask);
+router.put("/global/:id", updateGlobalTask);
+router.delete("/global/:id", deleteGlobalTask);
 router.get("/patient-schedule", getPatientCareSchedules);
 router.post("/patient-schedule", createPatientCareSchedule);
 router.post("/set-patient-schedule", setPatientSchedule); // Alias

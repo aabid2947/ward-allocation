@@ -90,15 +90,15 @@ app.use('/delete-all-db', async (req, res) => {
   const { StaffOverride } = await import('./models/StaffOverride.js');
   const { Room } = await import('./models/Room.js');
   try {
-    await Staff.deleteMany({});
+    // await Staff.deleteMany({});
     await Patient.deleteMany({});
-    await Ward.deleteMany({});
+    // await Ward.deleteMany({});
     await GlobalTask.deleteMany({});  
     await ShiftAssignment.deleteMany({});
     await ShiftLock.deleteMany({});
     await StaffOverride.deleteMany({});
 
-    await Room.deleteMany({});
+    // await Room.deleteMany({});
 
     res.status(200).json({ message: 'All database collections deleted.' });
   } catch (error) {

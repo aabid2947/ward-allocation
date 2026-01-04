@@ -129,3 +129,61 @@ export const getWeeklyWorkload = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Detailed Facility Overview
+export const getDetailedFacilityOverview = async (req, res) => {
+  try {
+    const wards = await Ward.find();
+    const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const overview = [];
+
+    for (const ward of wards) {
+      const patients = await Patient.find({ currentWard: ward._id, status: "Admitted" });
+      
+      const weeklyLoad = {};
+      daysOfWeek.forEach(day => weeklyLoad[day] = 0);
+
+      for (const patient of patients) {
+        // 1. Weekly Cares (Day specific)
+        if (patient.weeklyCares) {
+          patient.weeklyCares.forEach(care => {
+            const duration = parseDuration(care.amDuration) + parseDuration(care.pmDuration);
+            if (weeklyLoad[care.day] !== undefined) {
+              weeklyLoad[care.day] += duration;
+            }
+          });
+        }
+
+        // 2. Daily Schedule (Applies to ALL days)
+        if (patient.dailySchedule) {
+          const dailyTotal = patient.dailySchedule.reduce((sum, slot) => {
+            let duration = slot.durationMinutes || 0;
+            if (!slot.isFixedDuration && slot.startTime && slot.endTime) {
+               // Simple diff
+               const start = parseInt(slot.startTime.split(':')[0]) * 60 + parseInt(slot.startTime.split(':')[1]);
+               const end = parseInt(slot.endTime.split(':')[0]) * 60 + parseInt(slot.endTime.split(':')[1]);
+               duration = end - start;
+            }
+            return sum + (duration > 0 ? duration : 0);
+          }, 0);
+
+          daysOfWeek.forEach(day => {
+            weeklyLoad[day] += dailyTotal;
+          });
+        }
+      }
+
+      overview.push({
+        wardId: ward._id,
+        wardName: ward.name,
+        wing: ward.wing,
+        patientCount: patients.length,
+        weeklyLoad
+      });
+    }
+
+    res.status(200).json(overview);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

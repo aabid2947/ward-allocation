@@ -2,6 +2,8 @@ import { Patient } from "../models/Patient.js";
 import { Room } from "../models/Room.js";
 import { Ward } from "../models/Ward.js";
 import { PatientCareSchedule } from "../models/PatientCareSchedule.js";
+import { ShiftAssignment } from "../models/ShiftAssignment.js";
+import { calculateAllocation } from "./allocation.controller.js";
 
 // Helper: Process daily schedule to determine shift
 const processDailySchedule = (scheduleItems) => {
@@ -13,8 +15,8 @@ const processDailySchedule = (scheduleItems) => {
     // If timing is given (not fixed duration), decide AM/PM based on start time
     if (!item.isFixedDuration && item.startTime) {
       const hour = parseInt(item.startTime.split(':')[0], 10);
-      // Cutoff: 13:00 (1 PM) starts PM shift. So < 13 is AM.
-      shift = hour < 13 ? 'AM' : 'PM';
+      // Cutoff: 15:00 (3 PM) starts PM shift. So < 15 is AM.
+      shift = hour < 15 ? 'AM' : 'PM';
     }
     
     // If fixed duration, shift should be provided. If not, we can't infer it easily.
@@ -129,6 +131,66 @@ export const updatePatient = async (req, res) => {
     res.status(200).json(updatedPatient);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+};
+
+// Delete Patient
+export const deletePatient = async (req, res) => {
+  const { id } = req.params;
+  try {
+    // 1. Find assignments to identify affected shifts
+    const assignments = await ShiftAssignment.find({ patient: id });
+    
+    // Get unique shifts (date + shift)
+    const shiftsToUpdate = [];
+    const seen = new Set();
+    
+    assignments.forEach(a => {
+      const key = `${a.shiftDate.toISOString()}-${a.shift}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        shiftsToUpdate.push({ date: a.shiftDate, shift: a.shift });
+      }
+    });
+
+    // 2. Delete assignments for this patient
+    await ShiftAssignment.deleteMany({ patient: id });
+
+    // 3. Delete the patient
+    const deletedPatient = await Patient.findByIdAndDelete(id);
+    if (!deletedPatient) return res.status(404).json({ message: "Patient not found" });
+    
+    // Optionally delete associated schedules
+    await PatientCareSchedule.deleteMany({ patient: id });
+
+    // 4. Reallocate for affected shifts
+    for (const { date, shift } of shiftsToUpdate) {
+      try {
+        // Run allocation logic
+        const { assignments: newAssignments } = await calculateAllocation(date, shift);
+        
+        // Commit: Delete all for that shift and insert new
+        await ShiftAssignment.deleteMany({ shiftDate: date, shift });
+        
+        // Ensure date/shift are set correctly in new assignments
+        const assignmentsToSave = newAssignments.map(a => ({
+          ...a,
+          shiftDate: date,
+          shift: shift
+        }));
+        
+        await ShiftAssignment.insertMany(assignmentsToSave);
+        
+      } catch (allocError) {
+        console.error(`Failed to reallocate for ${date} ${shift}:`, allocError);
+        // Continue to next shift even if one fails. 
+        // The patient's tasks are already removed, so the schedule is valid but has gaps.
+      }
+    }
+    
+    res.status(200).json({ message: "Patient deleted and schedules updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -254,6 +316,125 @@ export const validatePlacement = async (req, res) => {
     }
 
     res.status(200).json({ available: true });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Create Dummy Patients (Up to 4)
+export const createDummyPatients = async (req, res) => {
+  try {
+    // Get a ward and room to assign
+    console.log("Creating dummy patients...");
+    const ward = await Ward.findOne();
+    if (!ward) return res.status(400).json({ message: "No wards found. Create a ward first." });
+    
+    const room = await Room.findOne({ ward: ward._id });
+    if (!room) return res.status(400).json({ message: "No rooms found in the ward." });
+
+    const dummyData = [
+      {
+        name: "Alice Smith",
+        primaryCondition: "Post-Op Recovery",
+        careLevel: "High",
+        mobilityLevel: "Assisted",
+        complexityScore: 1.5,
+        admissionDate: new Date(),
+        currentWard: ward._id,
+        currentRoom: room._id,
+        mobilityAid: "WalkingFrame",
+        acuityLevel: "High",
+        weeklyCares: [
+            { day: "Monday", amDuration: "30", pmDuration: "20" },
+            { day: "Thursday", amDuration: "30", pmDuration: "20" }
+        ],
+         dailySchedule: [
+          {
+            startTime: "15:00",
+            endTime: "15:30",
+            isFixedDuration: false,
+            shift: "PM",
+            activities: ["Afternoon Cares"]
+          },
+        ]
+      },
+      {
+        name: "Bob Jones",
+        primaryCondition: "Dementia",
+        careLevel: "Medium",
+        mobilityLevel: "Independent",
+        complexityScore: 1.2,
+        admissionDate: new Date(),
+        currentWard: ward._id,
+        currentRoom: room._id,
+        mobilityAid: "None",
+        acuityLevel: "Low",
+         weeklyCares: [
+            { day: "Monday", amDuration: "20", pmDuration: "15" },
+            { day: "Thursday", amDuration: "20", pmDuration: "15" }
+        ],
+         dailySchedule: [
+          {
+            startTime: "09:00",
+            endTime: "09:30",
+            isFixedDuration: false,
+            shift: "AM",
+            activities: ["Morning Cares"]
+          },
+        ]
+      },
+      {
+        name: "Charlie Brown",
+        primaryCondition: "Stroke",
+        careLevel: "High",
+        mobilityLevel: "BedBound",
+        complexityScore: 1.8,
+        admissionDate: new Date(),
+        currentWard: ward._id,
+        currentRoom: room._id,
+        mobilityAid: "Hoist",
+        acuityLevel: "High",
+         weeklyCares: [
+            { day: "Thursday", amDuration: "45", pmDuration: "30" }
+        ],
+        dailySchedule: [
+          {
+            startTime: "09:00",
+            endTime: "09:30",
+            isFixedDuration: false,
+            shift: "AM",
+            activities: ["Morning Cares"]
+          },
+        ]
+      },
+      {
+        name: "Diana Prince",
+        primaryCondition: "Frailty",
+        careLevel: "Low",
+        mobilityLevel: "WalkingFrame",
+        complexityScore: 1.1,
+        admissionDate: new Date(),
+        currentWard: ward._id,
+        currentRoom: room._id,
+        mobilityAid: "WalkingFrame",
+        acuityLevel: "Low",
+         weeklyCares: [
+            { day: "Thursday", amDuration: "15", pmDuration: "10" }
+        ],
+        dailySchedule: [
+          {
+            startTime: "15:00",
+            endTime: "15:30",
+            isFixedDuration: false,
+            shift: "PM",
+            activities: ["Afternoon Cares"]
+          },
+        ]
+      }
+    ];
+
+    const createdPatients = await Patient.insertMany(dummyData);
+    res.status(201).json(createdPatients);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

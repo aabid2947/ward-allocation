@@ -23,6 +23,37 @@ export const createStaff = async (req, res) => {
   }
 };
 
+// Update Staff
+export const updateStaff = async (req, res) => {
+  const { staffId } = req.params;
+  try {
+    const updatedStaff = await Staff.findByIdAndUpdate(staffId, req.body, { new: true });
+    if (!updatedStaff) return res.status(404).json({ message: "Staff not found" });
+    res.status(200).json(updatedStaff);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Delete Staff
+export const deleteStaff = async (req, res) => {
+  const { staffId } = req.params;
+  console.log(staffId)
+  try {
+    // Check for existing assignments
+    const assignmentCount = await ShiftAssignment.countDocuments({ staff: staffId });
+    // if (assignmentCount > 0) {
+    //   return res.status(400).json({ message: "Cannot delete staff with existing assignments. Please reallocate or remove assignments first." });
+    // }
+
+    const deletedStaff = await Staff.findByIdAndDelete(staffId);
+    if (!deletedStaff) return res.status(404).json({ message: "Staff not found" });
+    res.status(200).json({ message: "Staff deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Update Availability
 export const updateAvailability = async (req, res) => {
   const { staffId } = req.params;

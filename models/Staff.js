@@ -10,6 +10,7 @@ const StaffSchema = new mongoose.Schema({
   },
   maxMinutesPerShift: { type: Number, required: true },
   preferredWard: { type: mongoose.Schema.Types.ObjectId, ref: "Ward" },
+  assignedWard: { type: mongoose.Schema.Types.ObjectId, ref: "Ward" },
   active: { type: Boolean, default: true }
 }, { timestamps: true });
 
