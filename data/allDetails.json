@@ -1,15 +1,10 @@
 {
   "request": {
-    "date": "2026-01-04",
+    "date": "2026-01-09",
     "shift": "AM",
-    "timestamp": "2026-01-04T17:38:18.224Z"
+    "timestamp": "2026-01-09T13:09:31.412Z"
   },
   "staffFiltering": [
-    {
-      "staffName": "teststaff",
-      "decision": "Available",
-      "status": true
-    },
     {
       "staffName": "HCA 1",
       "decision": "Available",
@@ -34,20 +29,12 @@
   "wardAllocations": {
     "East Wing": {
       "staffPool": [],
-      "sortedQueue": [
-        "tea for Md Aabid Hussain (10m)"
-      ],
+      "sortedQueue": [],
       "steps": []
     },
     "West Wing": {
       "staffPool": [],
-      "sortedQueue": [
-        "Toileting, Morning Cares for convex (30m)",
-        " for A.G (30m)",
-        "tea for Aadil Hussain (10m)",
-        "tea for convex (10m)",
-        "tea for A.G (10m)"
-      ],
+      "sortedQueue": [],
       "steps": []
     }
   },

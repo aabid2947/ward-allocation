@@ -24,7 +24,7 @@ const PatientSchema = new mongoose.Schema({
   mobilityAid: { type: String }, // e.g., "LWF", "WC", "S.HOIST"
   acuityLevel: { type: String }, // e.g., "High", "Low"
   additionalTime: { type: Number, default: 0 }, // Extra minutes per shift
-  
+  noOfStaff: { type: Number, default: 1 }, // Number of staff required
   // Weekly grid for base cares (to match the Mon-Sun columns)
   weeklyCares: [{
     day: { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] },

@@ -11,6 +11,7 @@ import taskRoutes from './routes/task.routes.js';
 import allocationRoutes from './routes/allocation.routes.js';
 import operationsRoutes from './routes/operations.routes.js';
 import settingsRoutes from './routes/settings.routes.js';
+import authRoutes from './routes/auth.routes.js';
 import { PatientWardHistory } from './models/PatientWardHistory.js';
 
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/wards', wardRoutes);
 app.use('/api/staff', staffRoutes);
