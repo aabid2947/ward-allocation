@@ -201,7 +201,7 @@ export const calculateAllocation = async (date, shift) => {
       }
     }
 
-    fs.writeFileSync(`./data/allDetails.json`, JSON.stringify(allDetailsJson, null, 2));
+    // fs.writeFileSync(`./data/allDetails.json`, JSON.stringify(allDetailsJson, null, 2));
     return { assignments: totalAssignments, allDetailsJson };
   } catch (error) {
     allDetailsJson.errors.push(error.message);
