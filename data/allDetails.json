@@ -1,8 +1,8 @@
 {
   "request": {
-    "date": "2026-01-09",
+    "date": "2026-01-18",
     "shift": "AM",
-    "timestamp": "2026-01-09T13:09:31.412Z"
+    "timestamp": "2026-01-18T15:23:38.040Z"
   },
   "staffFiltering": [
     {
@@ -22,6 +22,16 @@
     },
     {
       "staffName": "HCA 4",
+      "decision": "Available",
+      "status": true
+    },
+    {
+      "staffName": "HCA 5",
+      "decision": "Available",
+      "status": true
+    },
+    {
+      "staffName": "payment",
       "decision": "Available",
       "status": true
     }

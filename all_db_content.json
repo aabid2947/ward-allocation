@@ -5,54 +5,24 @@
         "am": true,
         "pm": true
       },
-      "_id": "6950f93746cd787d8b6f8a96",
-      "name": "test",
-      "role": "RN",
-      "employmentType": "FullTime",
-      "maxMinutesPerShift": 480,
-      "active": true,
-      "createdAt": "2025-12-28T09:32:39.877Z",
-      "updatedAt": "2026-01-02T08:25:40.470Z",
-      "__v": 0,
-      "assignedWard": "6950f91946cd787d8b6f8a89"
-    },
-    {
-      "availability": {
-        "am": true,
-        "pm": true
-      },
-      "_id": "6951183a3a8b11312c47bf1a",
-      "name": "teststaff",
-      "role": "RN",
-      "employmentType": "FullTime",
-      "maxMinutesPerShift": 480,
-      "active": true,
-      "createdAt": "2025-12-28T11:44:58.076Z",
-      "updatedAt": "2026-01-02T08:25:58.153Z",
-      "__v": 0,
-      "assignedWard": "6950f91946cd787d8b6f8a89"
-    },
-    {
-      "availability": {
-        "am": true,
-        "pm": true
-      },
       "_id": "695392daf085be0b2bda501e",
       "name": "HCA 1",
       "role": "HCA",
       "employmentType": "FullTime",
-      "maxMinutesPerShift": 50,
+      "maxMinutesPerShift": 480,
       "active": true,
       "createdAt": "2025-12-30T08:52:42.954Z",
-      "updatedAt": "2026-01-02T08:36:31.491Z",
+      "updatedAt": "2026-01-17T16:23:14.061Z",
       "__v": 0,
-      "assignedWard": "69538d50223c535a69a4b7ee"
+      "assignedWard": "69538d50223c535a69a4b7ee",
+      "canHandleHeavyLoad": false
     },
     {
       "availability": {
         "am": true,
         "pm": true
       },
+      "canHandleHeavyLoad": true,
       "_id": "6953931ef085be0b2bda5025",
       "name": "HCA 2",
       "role": "HCA",
@@ -76,15 +46,17 @@
       "maxMinutesPerShift": 480,
       "active": true,
       "createdAt": "2025-12-31T01:25:57.956Z",
-      "updatedAt": "2026-01-02T08:36:31.982Z",
+      "updatedAt": "2026-01-18T10:53:04.063Z",
       "__v": 0,
-      "assignedWard": "69538d50223c535a69a4b7ee"
+      "assignedWard": "6950f91946cd787d8b6f8a89",
+      "canHandleHeavyLoad": true
     },
     {
       "availability": {
         "am": true,
         "pm": true
       },
+      "canHandleHeavyLoad": true,
       "_id": "69547bcf631ee679f5469eed",
       "name": "HCA 4",
       "role": "HCA",
@@ -92,13 +64,48 @@
       "maxMinutesPerShift": 480,
       "active": true,
       "createdAt": "2025-12-31T01:26:39.615Z",
-      "updatedAt": "2026-01-02T08:36:33.854Z",
+      "updatedAt": "2026-01-04T11:17:59.247Z",
       "__v": 0,
-      "assignedWard": "69538d50223c535a69a4b7ee"
+      "assignedWard": "6950f91946cd787d8b6f8a89"
+    },
+    {
+      "availability": {
+        "am": true,
+        "pm": true
+      },
+      "_id": "696b2ba904aa90124e3f604e",
+      "name": "HCA 5",
+      "role": "HCA",
+      "employmentType": "Casual",
+      "maxMinutesPerShift": 480,
+      "active": true,
+      "createdAt": "2026-01-17T06:26:49.766Z",
+      "updatedAt": "2026-01-18T10:52:55.648Z",
+      "__v": 0,
+      "assignedWard": "6950f91946cd787d8b6f8a89",
+      "canHandleHeavyLoad": true
+    },
+    {
+      "availability": {
+        "am": true,
+        "pm": true
+      },
+      "_id": "696bb887b11721a52e79f444",
+      "name": "payment",
+      "role": "RN",
+      "employmentType": "FullTime",
+      "maxMinutesPerShift": 480,
+      "canHandleHeavyLoad": false,
+      "active": true,
+      "createdAt": "2026-01-17T16:27:51.809Z",
+      "updatedAt": "2026-01-18T10:53:01.070Z",
+      "__v": 0,
+      "assignedWard": "6950f91946cd787d8b6f8a89"
     }
   ],
   "patients": [
     {
+      "noOfStaff": 1,
       "_id": "69562b78192ee7f8a134d7ec",
       "name": "Md Aabid Hussain",
       "primaryCondition": "flu",
@@ -113,7 +120,7 @@
       "weeklyCares": [
         {
           "day": "Monday",
-          "amDuration": "15",
+          "amDuration": "10",
           "pmDuration": "15",
           "specialTime": "",
           "_id": "69562b78192ee7f8a134d7ed"
@@ -166,8 +173,8 @@
           "startTime": "",
           "endTime": "",
           "isFixedDuration": true,
-          "durationMinutes": 15,
-          "shift": "AM",
+          "durationMinutes": 20,
+          "shift": "PM",
           "activities": [
             "Morning Cares",
             "Toileting"
@@ -189,10 +196,11 @@
       "currentWard": "6950f91946cd787d8b6f8a89",
       "currentRoom": "69538b9dd95ee6bab8fb42d3",
       "createdAt": "2026-01-01T08:08:24.967Z",
-      "updatedAt": "2026-01-01T08:08:24.967Z",
+      "updatedAt": "2026-01-04T15:57:10.532Z",
       "__v": 0
     },
     {
+      "noOfStaff": 1,
       "_id": "69562d94fc9e9e6cd18c8e24",
       "name": "Aadil Hussain",
       "primaryCondition": "flu",
@@ -287,6 +295,7 @@
       "__v": 0
     },
     {
+      "noOfStaff": 1,
       "_id": "69562e297d74969ecc3505d2",
       "name": "convex",
       "primaryCondition": "flu",
@@ -381,6 +390,7 @@
       "__v": 0
     },
     {
+      "noOfStaff": 1,
       "_id": "695a1f15b9333e22f923f959",
       "name": "A.G",
       "primaryCondition": "arthritis",
@@ -423,7 +433,7 @@
         },
         {
           "day": "Friday",
-          "amDuration": "10",
+          "amDuration": "20",
           "pmDuration": "10",
           "specialTime": "",
           "_id": "695a1f15b9333e22f923f95e"
@@ -445,18 +455,112 @@
       ],
       "dailySchedule": [
         {
-          "startTime": "",
+          "startTime": "23:21",
           "endTime": "",
-          "isFixedDuration": false,
+          "isFixedDuration": true,
           "shift": "AM",
           "activities": [],
           "_id": "695a1f15b9333e22f923f961"
+        },
+        {
+          "startTime": "",
+          "endTime": "",
+          "isFixedDuration": false,
+          "activities": [],
+          "_id": "696a113e56aede03aa991505"
+        },
+        {
+          "startTime": "",
+          "endTime": "",
+          "isFixedDuration": false,
+          "activities": [],
+          "_id": "696a113e56aede03aa991506"
         }
       ],
       "currentWard": "69538d50223c535a69a4b7ee",
       "currentRoom": "69538d70223c535a69a4b7fe",
       "createdAt": "2026-01-04T08:04:37.544Z",
-      "updatedAt": "2026-01-04T08:04:37.544Z",
+      "updatedAt": "2026-01-16T10:21:50.302Z",
+      "__v": 0
+    },
+    {
+      "_id": "696b2b2d04aa90124e3f5fe4",
+      "name": "B.D",
+      "primaryCondition": "Paralysis",
+      "careLevel": "Hospital",
+      "mobilityLevel": "BedBound",
+      "complexityScore": 1,
+      "admissionDate": "2026-01-17T00:00:00.000Z",
+      "status": "Admitted",
+      "mobilityAid": "Ceiling hoist",
+      "acuityLevel": "High",
+      "additionalTime": 0,
+      "noOfStaff": 1,
+      "weeklyCares": [
+        {
+          "day": "Monday",
+          "amDuration": "60",
+          "pmDuration": "30",
+          "specialTime": "",
+          "_id": "696b2b2d04aa90124e3f5fe5"
+        },
+        {
+          "day": "Tuesday",
+          "amDuration": " 50",
+          "pmDuration": "30",
+          "specialTime": "",
+          "_id": "696b2b2d04aa90124e3f5fe6"
+        },
+        {
+          "day": "Wednesday",
+          "amDuration": "60",
+          "pmDuration": "30",
+          "specialTime": "",
+          "_id": "696b2b2d04aa90124e3f5fe7"
+        },
+        {
+          "day": "Thursday",
+          "amDuration": "50",
+          "pmDuration": "30",
+          "specialTime": "",
+          "_id": "696b2b2d04aa90124e3f5fe8"
+        },
+        {
+          "day": "Friday",
+          "amDuration": "60",
+          "pmDuration": "30",
+          "specialTime": "",
+          "_id": "696b2b2d04aa90124e3f5fe9"
+        },
+        {
+          "day": "Saturday",
+          "amDuration": "50",
+          "pmDuration": "30",
+          "specialTime": "",
+          "_id": "696b2b2d04aa90124e3f5fea"
+        },
+        {
+          "day": "Sunday",
+          "amDuration": "50",
+          "pmDuration": "30",
+          "specialTime": "",
+          "_id": "696b2b2d04aa90124e3f5feb"
+        }
+      ],
+      "dailySchedule": [
+        {
+          "startTime": "",
+          "endTime": "",
+          "isFixedDuration": false,
+          "shift": "AM",
+          "activities": [],
+          "_id": "696b2b2d04aa90124e3f5fec"
+        }
+      ],
+      "currentWard": "69538d50223c535a69a4b7ee",
+      "currentRoom": "69538d97223c535a69a4b81e",
+      "createdAt": "2026-01-17T06:24:45.244Z",
+      "updatedAt": "2026-01-17T06:24:45.244Z",
       "__v": 0
     }
   ],
@@ -468,11 +572,16 @@
       "subWing": "East 1",
       "active": true,
       "createdAt": "2025-12-28T09:32:09.632Z",
-      "updatedAt": "2026-01-04T10:45:34.996Z",
-      "__v": 4,
+      "updatedAt": "2026-01-18T10:53:04.681Z",
+      "__v": 9,
       "staff": [
         "6950f93746cd787d8b6f8a96",
-        "6951183a3a8b11312c47bf1a"
+        "6951183a3a8b11312c47bf1a",
+        "69547bcf631ee679f5469eed",
+        "696b2ba904aa90124e3f604e",
+        "696bb887b11721a52e79f444",
+        "69547ba5631ee679f5469eba",
+        "69547ba5631ee679f5469eba"
       ]
     },
     {
@@ -482,17 +591,28 @@
       "subWing": "West 1",
       "active": true,
       "createdAt": "2025-12-30T08:29:04.688Z",
-      "updatedAt": "2026-01-04T10:45:35.384Z",
+      "updatedAt": "2026-01-18T10:53:03.855Z",
       "__v": 4,
       "staff": [
         "695392daf085be0b2bda501e",
-        "69547ba5631ee679f5469eba",
-        "69547bcf631ee679f5469eed",
         "6953931ef085be0b2bda5025"
       ]
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "_id": "6960fa6e73c08856178bbcbf",
+      "name": "Morning tea",
+      "durationMinutes": 1,
+      "requiredStaff": 2,
+      "shift": "AM",
+      "startTime": "22:00",
+      "active": true,
+      "createdAt": "2026-01-09T12:54:06.720Z",
+      "updatedAt": "2026-01-17T06:27:57.964Z",
+      "__v": 0
+    }
+  ],
   "shifts": [
     {
       "_id": "6956427e6176d4606764eed7",

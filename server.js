@@ -44,7 +44,7 @@ mongoose.connect(MONGO_URI, {
 
 // Routes
 // app.use('/api', apiRoutes);
-
+//  http://localhost:5000/see
 // fetch all db content 
 app.use('/see', async (req, res) => {
   const { Staff } = await import('./models/Staff.js');
@@ -82,32 +82,32 @@ app.use('/see', async (req, res) => {
   } 
 });
 
-app.use('/delete-all-db', async (req, res) => {
-  const { Staff } = await import('./models/Staff.js');
-  const { Patient } = await import('./models/Patient.js');
-  const { Ward } = await import('./models/Ward.js');
-  const { GlobalTask } = await import('./models/GlobalTask.js');
-  const { ShiftAssignment } = await import('./models/ShiftAssignment.js');
-  const { ShiftLock } = await import('./models/ShiftLock.js');
-  const { StaffOverride } = await import('./models/StaffOverride.js');
-  const { Room } = await import('./models/Room.js');
-  try {
-    // await Staff.deleteMany({});
-    await Patient.deleteMany({});
-    // await Ward.deleteMany({});
-    await GlobalTask.deleteMany({});  
-    await ShiftAssignment.deleteMany({});
-    await ShiftLock.deleteMany({});
-    await StaffOverride.deleteMany({});
+// app.use('/delete-all-db', async (req, res) => {
+//   const { Staff } = await import('./models/Staff.js');
+//   const { Patient } = await import('./models/Patient.js');
+//   const { Ward } = await import('./models/Ward.js');
+//   const { GlobalTask } = await import('./models/GlobalTask.js');
+//   const { ShiftAssignment } = await import('./models/ShiftAssignment.js');
+//   const { ShiftLock } = await import('./models/ShiftLock.js');
+//   const { StaffOverride } = await import('./models/StaffOverride.js');
+//   const { Room } = await import('./models/Room.js');
+//   try {
+//     // await Staff.deleteMany({});
+//     await Patient.deleteMany({});
+//     // await Ward.deleteMany({});
+//     await GlobalTask.deleteMany({});  
+//     await ShiftAssignment.deleteMany({});
+//     await ShiftLock.deleteMany({});
+//     await StaffOverride.deleteMany({});
 
-    // await Room.deleteMany({});
+//     // await Room.deleteMany({});
 
-    res.status(200).json({ message: 'All database collections deleted.' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: error.message });
-  }
-});
+//     res.status(200).json({ message: 'All database collections deleted.' });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 // curl -X GET http://localhost:5000/delete-all-db
 // Start Server
 app.listen(PORT, () => {

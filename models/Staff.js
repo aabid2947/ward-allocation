@@ -9,6 +9,7 @@ const StaffSchema = new mongoose.Schema({
     pm: { type: Boolean, default: false }
   },
   maxMinutesPerShift: { type: Number, required: true },
+  canHandleHeavyLoad: { type: Boolean, default: true },
   preferredWard: { type: mongoose.Schema.Types.ObjectId, ref: "Ward" },
   assignedWard: { type: mongoose.Schema.Types.ObjectId, ref: "Ward" },
   active: { type: Boolean, default: true }

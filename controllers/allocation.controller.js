@@ -14,7 +14,7 @@ const parseDuration = (durationStr) => {
   const numbers = durationStr.match(/\d+/g);
   if (!numbers) return 0;
   // If "15-20", return 20 to be safe, or calculate average 
-  return Math.max(...numbers.map(Number)); 
+  return Math.max(...numbers.map(Number));
 };
 
 // Helper to check if shift is locked
@@ -54,7 +54,7 @@ export const calculateAllocation = async (date, shift) => {
     const wards = await Ward.find({ active: true });
     const allStaff = await Staff.find({ active: true });
     const overrides = await StaffOverride.find({ date, shift });
-    const patients = await Patient.find({ status: "Admitted" });
+    const patients = await Patient.find({ status: "Admitted" }).populate('currentRoom');
     const globalTasks = await GlobalTask.find({ active: true, shift });
     const dayOfWeek = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
 
@@ -89,15 +89,11 @@ export const calculateAllocation = async (date, shift) => {
       const wardPatients = patients.filter(p => p.currentWard?.toString() === wardIdStr);
       let wardTasks = [];
 
-      // --- 1. Global Tasks (Dynamic Grouping) ---
+      // --- 1. Global Tasks (Bulk Grouping) ---
       globalTasks.forEach(gt => {
-        // Safety: Prevent null durations from breaking math
-        const baseDuration = gt.durationMinutes || 10; 
+        const baseDuration = gt.durationMinutes || 10;
         const totalWardTime = baseDuration * wardPatients.length;
-
-        // Grouping Strategy: Keep as 1 block if total time <= 60m. 
-        // If longer, split into chunks of ~60m to distribute across staff while keeping work grouped.
-        const maxChunk = 60; 
+        const maxChunk = 60;
         const chunks = Math.ceil(totalWardTime / maxChunk);
         const chunkDuration = Math.ceil(totalWardTime / chunks);
 
@@ -105,23 +101,24 @@ export const calculateAllocation = async (date, shift) => {
           wardTasks.push({
             type: "GlobalTask",
             duration: chunkDuration,
-            name: `${gt.name}${chunks > 1 ? ` (Block ${i + 1})` : ""}`,
-            startTime: gt.startTime || null, // Map from model
+            name: `${gt.name}${chunks > 1 ? ` (Group ${i + 1})` : ""}`,
+            startTime: gt.startTime || null,
             staffNeededCount: gt.requiredStaff || 1
           });
         }
       });
 
-      // --- 2. Patient Specific Tasks ---
+      // --- 2. Patient Specific Tasks (Combined Logic) ---
       for (const patient of wardPatients) {
-        let hasDailySlots = false;
-        
+        // A. Always check Daily Schedule
         if (patient.dailySchedule?.length > 0) {
           patient.dailySchedule.forEach(slot => {
             let slotShift = slot.shift || (slot.startTime && (parseInt(slot.startTime.split(':')[0]) < 15 ? 'AM' : 'PM'));
-            if (slotShift === shift) {
-              hasDailySlots = true;
-              // Reduced default to 10m to fix over-allocation
+
+            // Only add if the slot has actual activity or time data
+            const hasContent = slot.activities?.length > 0 || slot.durationMinutes > 0 || (slot.startTime && slot.endTime);
+
+            if (slotShift === shift && hasContent) {
               let duration = slot.isFixedDuration ? (slot.durationMinutes || 10) : (slot.startTime && slot.endTime ? (timeToMins(slot.endTime) - timeToMins(slot.startTime)) : 10);
               wardTasks.push({
                 type: "DailySlot",
@@ -130,40 +127,38 @@ export const calculateAllocation = async (date, shift) => {
                 patient: patient,
                 startTime: slot.startTime,
                 endTime: slot.endTime || null,
-                staffNeededCount: patient.noOfStaff || 1 // Support new Patient field
+                staffNeededCount: patient.noOfStaff || 1
               });
             }
           });
         }
 
-        if (!hasDailySlots) {
-          const weeklyCare = patient.weeklyCares?.find(c => c.day === dayOfWeek);
-          if (weeklyCare) {
-            const durationStr = (shift === "AM") ? weeklyCare.amDuration : weeklyCare.pmDuration;
-            const duration = parseDuration(durationStr);
-            if (duration > 0) {
-              wardTasks.push({
-                type: "PatientCare",
-                duration: Math.round((duration + (patient.additionalTime || 0)) * (patient.complexityScore || 1.0)),
-                name: `Base Care: ${patient.name}`,
-                patient: patient,
-                startTime: weeklyCare.specialTime ? weeklyCare.specialTime.split('-')[0] : null,
-                endTime: weeklyCare.specialTime ? weeklyCare.specialTime.split('-')[1] : null,
-                staffNeededCount: patient.noOfStaff || 1
-              });
-            }
+        // B. ALWAYS also check Weekly Care Grid
+        // This is no longer excluded by the presence of a Daily Schedule
+        const weeklyCare = patient.weeklyCares?.find(c => c.day === dayOfWeek);
+        if (weeklyCare) {
+          const durationStr = (shift === "AM") ? weeklyCare.amDuration : weeklyCare.pmDuration;
+          const duration = parseDuration(durationStr);
+          if (duration > 0) {
+            wardTasks.push({
+              type: "PatientCare",
+              duration: Math.round((duration + (patient.additionalTime || 0)) * (patient.complexityScore || 1.0)),
+              name: `Base Care: ${patient.name}`,
+              patient: patient,
+              startTime: weeklyCare.specialTime ? weeklyCare.specialTime.split('-')[0] : null,
+              endTime: (weeklyCare.specialTime && weeklyCare.specialTime.includes('-')) ? weeklyCare.specialTime.split('-')[1] : null,
+              staffNeededCount: patient.noOfStaff || 1
+            });
           }
         }
       }
 
-      // Pure time-based sorting: Longest tasks first
+      // 3. Balanced Time-Based Sorting
       const wardQueue = wardTasks.sort((a, b) => b.duration - a.duration);
 
-      // --- 3. Allocation Logic with Fairness ---
+      // 4. Allocation with Collision Detection
       const allocateInWard = (task, duration, role = "Primary") => {
-        // Re-sorting here ensures the LEAST busy staff is always picked next
         wardStaffPool.sort((a, b) => a.minutesAllocated - b.minutesAllocated);
-
         const tStart = timeToMins(task.startTime);
         const tEnd = (tStart && !task.endTime) ? tStart + duration : timeToMins(task.endTime);
 
@@ -171,7 +166,6 @@ export const calculateAllocation = async (date, shift) => {
           const capacityOk = s.minutesAllocated + duration <= s.staff.maxMinutes;
           let collisionOk = true;
           if (tStart !== null && tEnd !== null) {
-            // Prevent staff from doing two tasks at once
             collisionOk = !s.timeline.some(booked => isOverlapping(booked.start, booked.end, tStart, tEnd));
           }
           return capacityOk && collisionOk;
@@ -179,10 +173,7 @@ export const calculateAllocation = async (date, shift) => {
 
         if (bestStaff) {
           bestStaff.minutesAllocated += duration;
-          if (tStart !== null && tEnd !== null) {
-            bestStaff.timeline.push({ start: tStart, end: tEnd });
-          }
-          
+          if (tStart !== null && tEnd !== null) bestStaff.timeline.push({ start: tStart, end: tEnd });
           totalAssignments.push({
             shiftDate: date, shift, staff: bestStaff.staff._id, staffName: bestStaff.staff.name,
             ward: ward._id, wardName: ward.name, patient: task.patient?._id || null,
@@ -194,14 +185,19 @@ export const calculateAllocation = async (date, shift) => {
 
       for (const task of wardQueue) {
         const staffCount = task.staffNeededCount || 1;
+
+        // 1. Allocate the primary staff member for the full task duration
         allocateInWard(task, task.duration, "Primary");
+
+        // 2. Allocate assistance staff for the SAME full duration
         for (let i = 1; i < staffCount; i++) {
-          allocateInWard(task, 10, "Secondary"); // Multi-staff assistance window
+          // Changed '10' to 'task.duration' to match the main task
+          allocateInWard(task, task.duration, "Secondary");
         }
       }
     }
 
-    // fs.writeFileSync(`./data/allDetails.json`, JSON.stringify(allDetailsJson, null, 2));
+    fs.writeFileSync(`./data/allDetails.json`, JSON.stringify(allDetailsJson, null, 2));
     return { assignments: totalAssignments, allDetailsJson };
   } catch (error) {
     allDetailsJson.errors.push(error.message);
@@ -312,7 +308,7 @@ export const manualOverride = async (req, res) => {
     if (!assignment.isManualOverride) {
       assignment.originalStaff = assignment.staff;
     }
-    
+
     assignment.staff = newStaffId;
     assignment.isManualOverride = true;
     assignment.overrideReason = reason;
