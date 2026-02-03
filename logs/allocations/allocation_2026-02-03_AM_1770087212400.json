@@ -1,0 +1,1105 @@
+{
+  "metadata": {
+    "timestamp": "2026-02-03T02:53:30.832Z",
+    "date": "2026-02-03",
+    "shift": "AM",
+    "totalWards": 2,
+    "totalStaff": 5,
+    "totalPatients": 11,
+    "executionTimeMs": 1565
+  },
+  "wardAllocations": {
+    "East Wing 1": {
+      "wardName": "East Wing 1",
+      "wardId": "6974fc5f9830b0814f9de905",
+      "staffPool": {
+        "total": 2,
+        "available": [
+          {
+            "name": "HCA Carol",
+            "gender": "Female",
+            "canHandleHeavyLoad": true,
+            "initialLoad": 0
+          },
+          {
+            "name": "HCA Eve",
+            "gender": "Female",
+            "canHandleHeavyLoad": true,
+            "initialLoad": 0
+          }
+        ],
+        "unavailable": []
+      },
+      "taskProcessing": {
+        "globalTasks": [
+          {
+            "taskNumber": 0,
+            "taskName": "Morning Tea (1/1)",
+            "taskType": "GlobalTask",
+            "duration": 5,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": null,
+              "genderRequired": "Any",
+              "acuityLevel": "Normal",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 0
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 0
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "role": "Primary",
+                  "loadBefore": 0,
+                  "loadAfter": 5,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          }
+        ],
+        "patientTasks": [
+          {
+            "taskNumber": 0,
+            "taskName": "Base Care: B.M",
+            "taskType": "PatientCare",
+            "duration": 30,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "B.M",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 5
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 0
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 5
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Eve",
+                  "role": "Primary",
+                  "loadBefore": 0,
+                  "loadAfter": 30,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 1,
+            "taskName": "Base Care: B.R",
+            "taskType": "PatientCare",
+            "duration": 30,
+            "staffNeeded": 2,
+            "constraints": {
+              "patient": "B.R",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 5
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 30
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 5
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 30
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "role": "Primary",
+                  "loadBefore": 5,
+                  "loadAfter": 35,
+                  "reason": "Least loaded eligible staff"
+                },
+                {
+                  "name": "HCA Eve",
+                  "role": "Assistant 1",
+                  "loadBefore": 30,
+                  "loadAfter": 60,
+                  "reason": "2th least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 2,
+            "taskName": "Base Care: B.B",
+            "taskType": "PatientCare",
+            "duration": 25,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "B.B",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 35
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 60
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 35
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 60
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "role": "Primary",
+                  "loadBefore": 35,
+                  "loadAfter": 60,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 3,
+            "taskName": "Base Care: N.G",
+            "taskType": "PatientCare",
+            "duration": 15,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "N.G",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 60
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 60
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 60
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 60
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "role": "Primary",
+                  "loadBefore": 60,
+                  "loadAfter": 75,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 4,
+            "taskName": "Base Care: S.J",
+            "taskType": "PatientCare",
+            "duration": 10,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "S.J",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 75
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 60
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 60
+                },
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 75
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Eve",
+                  "role": "Primary",
+                  "loadBefore": 60,
+                  "loadAfter": 70,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          }
+        ]
+      },
+      "rebalancingSteps": {
+        "globalTaskBalancing": {
+          "iterations": 1,
+          "initialVariance": 6.25,
+          "finalVariance": 6.25,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "GlobalTask",
+              "action": "CONVERGED",
+              "message": "Load difference < 10 minutes, stopping rebalancing",
+              "beforeState": {
+                "variance": 6.25,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Carol",
+                    "load": 75
+                  },
+                  {
+                    "staff": "HCA Eve",
+                    "load": 70
+                  }
+                ],
+                "maxLoad": 75,
+                "minLoad": 70,
+                "difference": 5
+              }
+            }
+          ],
+          "converged": true
+        },
+        "patientCareBalancing": {
+          "iterations": 1,
+          "initialVariance": 6.25,
+          "finalVariance": 6.25,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "PatientCare",
+              "action": "CONVERGED",
+              "message": "Load difference < 10 minutes, stopping rebalancing",
+              "beforeState": {
+                "variance": 6.25,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Carol",
+                    "load": 75
+                  },
+                  {
+                    "staff": "HCA Eve",
+                    "load": 70
+                  }
+                ],
+                "maxLoad": 75,
+                "minLoad": 70,
+                "difference": 5
+              }
+            }
+          ],
+          "converged": true
+        },
+        "dailySlotBalancing": {
+          "iterations": 1,
+          "initialVariance": 6.25,
+          "finalVariance": 6.25,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "DailySlot",
+              "action": "CONVERGED",
+              "message": "Load difference < 10 minutes, stopping rebalancing",
+              "beforeState": {
+                "variance": 6.25,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Carol",
+                    "load": 75
+                  },
+                  {
+                    "staff": "HCA Eve",
+                    "load": 70
+                  }
+                ],
+                "maxLoad": 75,
+                "minLoad": 70,
+                "difference": 5
+              }
+            }
+          ],
+          "converged": true
+        }
+      },
+      "finalState": {
+        "staffLoads": [
+          {
+            "name": "HCA Carol",
+            "totalMinutes": 75,
+            "assignments": 4,
+            "breakdown": {
+              "globalTasks": 1,
+              "patientCare": 3,
+              "dailySlots": 0
+            }
+          },
+          {
+            "name": "HCA Eve",
+            "totalMinutes": 70,
+            "assignments": 3,
+            "breakdown": {
+              "globalTasks": 0,
+              "patientCare": 3,
+              "dailySlots": 0
+            }
+          }
+        ],
+        "variance": 6.25,
+        "stdDev": 2.5,
+        "fairnessScore": 0.13793103448275862
+      },
+      "errors": []
+    },
+    "West Wing 1": {
+      "wardName": "West Wing 1",
+      "wardId": "6979c7aebec2b18eb7a13f1b",
+      "staffPool": {
+        "total": 2,
+        "available": [
+          {
+            "name": "HCA Bob",
+            "gender": "Male",
+            "canHandleHeavyLoad": false,
+            "initialLoad": 0
+          },
+          {
+            "name": "HCA Dave",
+            "gender": "Male",
+            "canHandleHeavyLoad": true,
+            "initialLoad": 0
+          }
+        ],
+        "unavailable": []
+      },
+      "taskProcessing": {
+        "globalTasks": [
+          {
+            "taskNumber": 0,
+            "taskName": "Morning Tea (1/1)",
+            "taskType": "GlobalTask",
+            "duration": 6,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": null,
+              "genderRequired": "Any",
+              "acuityLevel": "Normal",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 0
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 0
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "role": "Primary",
+                  "loadBefore": 0,
+                  "loadAfter": 6,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          }
+        ],
+        "patientTasks": [
+          {
+            "taskNumber": 0,
+            "taskName": "Base Care: A.G",
+            "taskType": "PatientCare",
+            "duration": 25,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "A.G",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 6
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 0
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 6
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Dave",
+                  "role": "Primary",
+                  "loadBefore": 0,
+                  "loadAfter": 25,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 1,
+            "taskName": "Base Care: E.R",
+            "taskType": "PatientCare",
+            "duration": 20,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "E.R",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 6
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 25
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 6
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 25
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "role": "Primary",
+                  "loadBefore": 6,
+                  "loadAfter": 26,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 2,
+            "taskName": "Base Care: A.R",
+            "taskType": "PatientCare",
+            "duration": 20,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "A.R",
+              "genderRequired": "Any",
+              "acuityLevel": "High",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Acuity-HeavyLoad",
+                      "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 25
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 25
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Dave",
+                  "role": "Primary",
+                  "loadBefore": 25,
+                  "loadAfter": 45,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 3,
+            "taskName": "Base Care: J.I",
+            "taskType": "PatientCare",
+            "duration": 15,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "J.I",
+              "genderRequired": "Any",
+              "acuityLevel": "High",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Acuity-HeavyLoad",
+                      "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 45
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 45
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Dave",
+                  "role": "Primary",
+                  "loadBefore": 45,
+                  "loadAfter": 60,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 4,
+            "taskName": "Base Care: M.E",
+            "taskType": "PatientCare",
+            "duration": 15,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "M.E",
+              "genderRequired": "Any",
+              "acuityLevel": "High",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Acuity-HeavyLoad",
+                      "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 60
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 60
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Dave",
+                  "role": "Primary",
+                  "loadBefore": 60,
+                  "loadAfter": 75,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 5,
+            "taskName": "Base Care: D.W",
+            "taskType": "PatientCare",
+            "duration": 5,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "D.W",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 26
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 75
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 26
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 75
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "role": "Primary",
+                  "loadBefore": 26,
+                  "loadAfter": 31,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          }
+        ]
+      },
+      "rebalancingSteps": {
+        "globalTaskBalancing": {
+          "iterations": 1,
+          "initialVariance": 484,
+          "finalVariance": 484,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "GlobalTask",
+              "action": "NO_CANDIDATES",
+              "message": "No movable tasks found for this task type",
+              "beforeState": {
+                "variance": 484,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Bob",
+                    "load": 31
+                  },
+                  {
+                    "staff": "HCA Dave",
+                    "load": 75
+                  }
+                ],
+                "maxLoad": 75,
+                "minLoad": 31,
+                "difference": 44
+              }
+            }
+          ],
+          "converged": true
+        },
+        "patientCareBalancing": {
+          "iterations": 2,
+          "initialVariance": 484,
+          "finalVariance": 9,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "PatientCare",
+              "action": "MOVE_EXECUTED",
+              "moveAttempt": {
+                "taskSignature": "WEEKLY_6979cd1c9fa15e77f5752196_AM",
+                "taskName": "Base Care: A.G",
+                "duration": 25,
+                "fromStaff": "HCA Dave",
+                "toStaff": "HCA Bob",
+                "constraintChecks": [
+                  {
+                    "constraint": "Self-Assignment",
+                    "result": "PASS"
+                  },
+                  {
+                    "constraint": "Gender",
+                    "required": "Any",
+                    "staffGender": "Male",
+                    "result": "PASS"
+                  },
+                  {
+                    "constraint": "Acuity-HeavyLoad",
+                    "patientAcuity": "Medium",
+                    "staffCanHandleHeavyLoad": false,
+                    "result": "PASS"
+                  },
+                  {
+                    "constraint": "Multi-Staff Separation",
+                    "targetAlreadyAssigned": false,
+                    "result": "PASS"
+                  },
+                  {
+                    "constraint": "Time Conflict",
+                    "taskTime": "flexible",
+                    "result": "PASS"
+                  }
+                ],
+                "moveDecision": "APPROVED",
+                "reason": "All constraints satisfied, improves balance"
+              },
+              "beforeState": {
+                "variance": 484,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Dave",
+                    "load": 75
+                  },
+                  {
+                    "staff": "HCA Bob",
+                    "load": 31
+                  }
+                ],
+                "maxLoad": 75,
+                "minLoad": 31,
+                "difference": 44
+              },
+              "afterState": {
+                "variance": 9,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Dave",
+                    "load": 50
+                  },
+                  {
+                    "staff": "HCA Bob",
+                    "load": 56
+                  }
+                ],
+                "varianceReduction": 475,
+                "improved": true
+              }
+            },
+            {
+              "iteration": 2,
+              "phase": "PatientCare",
+              "action": "CONVERGED",
+              "message": "Load difference < 10 minutes, stopping rebalancing",
+              "beforeState": {
+                "variance": 9,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Dave",
+                    "load": 50
+                  },
+                  {
+                    "staff": "HCA Bob",
+                    "load": 56
+                  }
+                ],
+                "maxLoad": 56,
+                "minLoad": 50,
+                "difference": 6
+              }
+            }
+          ],
+          "converged": true
+        },
+        "dailySlotBalancing": {
+          "iterations": 1,
+          "initialVariance": 9,
+          "finalVariance": 9,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "DailySlot",
+              "action": "CONVERGED",
+              "message": "Load difference < 10 minutes, stopping rebalancing",
+              "beforeState": {
+                "variance": 9,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Bob",
+                    "load": 56
+                  },
+                  {
+                    "staff": "HCA Dave",
+                    "load": 50
+                  }
+                ],
+                "maxLoad": 56,
+                "minLoad": 50,
+                "difference": 6
+              }
+            }
+          ],
+          "converged": true
+        }
+      },
+      "finalState": {
+        "staffLoads": [
+          {
+            "name": "HCA Bob",
+            "totalMinutes": 56,
+            "assignments": 4,
+            "breakdown": {
+              "globalTasks": 1,
+              "patientCare": 3,
+              "dailySlots": 0
+            }
+          },
+          {
+            "name": "HCA Dave",
+            "totalMinutes": 50,
+            "assignments": 3,
+            "breakdown": {
+              "globalTasks": 0,
+              "patientCare": 3,
+              "dailySlots": 0
+            }
+          }
+        ],
+        "variance": 9,
+        "stdDev": 3,
+        "fairnessScore": 0.1
+      },
+      "errors": []
+    }
+  },
+  "summary": {
+    "totalAssignments": 14,
+    "unallocatedTasks": 0,
+    "fairnessMetrics": {
+      "overallVariance": 7.625,
+      "wardVariances": [
+        {
+          "ward": "East Wing 1",
+          "variance": 6.25,
+          "stdDev": 2.5,
+          "staffCount": 2
+        },
+        {
+          "ward": "West Wing 1",
+          "variance": 9,
+          "stdDev": 3,
+          "staffCount": 2
+        }
+      ]
+    },
+    "constraintViolations": 0,
+    "warnings": []
+  },
+  "unallocatedTasksDetail": [],
+  "staffAvailability": {
+    "total": 5,
+    "available": 5,
+    "unavailable": 0,
+    "details": [
+      {
+        "name": "HCA Alice",
+        "available": true,
+        "reason": null
+      },
+      {
+        "name": "HCA Bob",
+        "ward": "6979c7aebec2b18eb7a13f1b",
+        "available": true,
+        "reason": null
+      },
+      {
+        "name": "HCA Carol",
+        "ward": "6974fc5f9830b0814f9de905",
+        "available": true,
+        "reason": null
+      },
+      {
+        "name": "HCA Dave",
+        "ward": "6979c7aebec2b18eb7a13f1b",
+        "available": true,
+        "reason": null
+      },
+      {
+        "name": "HCA Eve",
+        "ward": "6974fc5f9830b0814f9de905",
+        "available": true,
+        "reason": null
+      }
+    ]
+  }
+}

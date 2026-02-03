@@ -278,36 +278,66 @@ const checkAllConstraints = (staffMember, task, taskStartMinutes, taskEndMinutes
 /**
  * Build all tasks for a ward from patients and global tasks.
  * Returns tasks separated by type for differential allocation strategy.
+ * 
+ * GLOBAL TASK UPDATES (New Behavior):
+ * - GlobalTasks are now CLUBBED by ward (not per patient)
+ * - Total duration = durationMinutes × number of patients in ward
+ * - The total is DIVIDED among 'requiredStaff' number of staff members
+ * - Each staff member gets an equal portion of the total task
+ * 
+ * Example:
+ *   - Task: "Medication Round" with durationMinutes = 5, requiredStaff = 5
+ *   - Ward has 10 patients
+ *   - Total time needed = 5 min × 10 patients = 50 minutes
+ *   - Divided among 5 staff = 10 minutes per staff member
+ *   - Creates 5 separate task assignments, each for 10 minutes
  */
 const buildWardTasks = (wardPatients, globalTasks, shift, dayOfWeek, ward) => {
   const globalTaskList = [];
   const patientTaskList = [];
   
   // ========================================================================
-  // GLOBAL TASKS - ONE TASK PER PATIENT
-  // Each patient gets their own global task instance (e.g., medication round)
-  // This enables natural distribution across staff while maintaining atomicity
+  // GLOBAL TASKS - CLUBBED BY WARD AND DIVIDED AMONG STAFF
+  // Total duration = durationMinutes * number of patients
+  // This total is divided among 'requiredStaff' number of staff members
+  // Example: 5 min task × 10 patients = 50 min total ÷ 5 staff = 10 min each
   // ========================================================================
   globalTasks.forEach((gt) => {
-    wardPatients.forEach((patient) => {
-      const duration = gt.durationMinutes || 10;
-      
+    const patientCount = wardPatients.length;
+    
+    if (patientCount === 0) return; // Skip if no patients in ward
+    
+    // Calculate total time needed for all patients
+    const durationPerPatient = gt.durationMinutes || 10;
+    const totalDuration = durationPerPatient * patientCount;
+    
+    // Divide the total task among the required number of staff
+    const staffDivisions = gt.requiredStaff || 1;
+    const durationPerStaff = Math.ceil(totalDuration / staffDivisions);
+    
+    // Create one task per staff division
+    for (let i = 0; i < staffDivisions; i++) {
       globalTaskList.push({
         type: "GlobalTask",
-        duration,
-        name: `${gt.name}: ${patient.name}`,
-        taskSignature: `GLOBAL_${gt._id}_${patient._id}`,
+        duration: durationPerStaff,
+        name: `${gt.name} (${i + 1}/${staffDivisions})`,
+        taskSignature: `GLOBAL_${gt._id}_DIVISION_${i}`,
         startTime: gt.startTime || null,
         endTime: null,
-        patient: patient,
+        patient: null, // No specific patient - ward-level task
         ward: ward,
-        staffNeededCount: gt.requiredStaff || 1,
+        staffNeededCount: 1, // Each division is for one staff member
         priority: 100,
         globalTaskId: gt._id,
-        globalTaskName: gt.name
+        globalTaskName: gt.name,
+        divisionIndex: i,
+        totalDivisions: staffDivisions,
+        totalPatients: patientCount,
+        durationPerPatient: durationPerPatient
       });
-    });
+    }
   });
+
   
   // ========================================================================
   // PATIENT TASKS
