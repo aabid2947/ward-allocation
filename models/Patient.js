@@ -32,7 +32,8 @@ const PatientSchema = new mongoose.Schema({
     amDuration: { type: String }, // Stored as string to handle "15-20"
     pmDuration: { type: String },
     specialTime: { type: String },  // e.g., "8:40-9am"
-    showerDay: { type: Boolean, default: false } // Indicates if it's a shower day
+    showerDay: { type: Boolean, default: false }, // Indicates if it's a shower day
+    linenChange: { type: Boolean, default: false } // Indicates if it's a linen change day
   }],
   dailySchedule: [{
     startTime: String, // "HH:mm"

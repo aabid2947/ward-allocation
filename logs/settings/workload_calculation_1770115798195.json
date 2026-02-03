@@ -1,0 +1,1215 @@
+{
+  "timestamp": "2026-02-03T10:49:58.106Z",
+  "wards": [
+    {
+      "wardName": "East Wing 1",
+      "patientCalculations": [
+        {
+          "patientName": "B.M",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "B.B",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 10,
+                "plusAdditional": 10,
+                "result": 10
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 10,
+                "plusAdditional": 10,
+                "result": 10
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 10,
+                "plusAdditional": 10,
+                "result": 10
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 10,
+                "plusAdditional": 10,
+                "result": 10
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "S.J",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 10,
+                "plusAdditional": 10,
+                "result": 10
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 10,
+                "plusAdditional": 10,
+                "result": 10
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 10,
+                "plusAdditional": 10,
+                "result": 10
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 10,
+                "plusAdditional": 10,
+                "result": 10
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "N.G",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "B.R",
+          "complexity": 1,
+          "staffCount": 2,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 40
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 30
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 60
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 30
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 40
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 30
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 60
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 30
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 40
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 30
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 60
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 30
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 40
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 30
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "Md Aabid Hussain",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              },
+              "pm": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              },
+              "pm": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              },
+              "pm": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              },
+              "pm": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              },
+              "pm": {
+                "base": 0,
+                "plusAdditional": 0,
+                "result": 0
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        }
+      ]
+    },
+    {
+      "wardName": "West Wing 1",
+      "patientCalculations": [
+        {
+          "patientName": "E.R",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "J.I",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "D.W",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              },
+              "pm": {
+                "base": 2,
+                "plusAdditional": 2,
+                "result": 2
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              },
+              "pm": {
+                "base": 2,
+                "plusAdditional": 2,
+                "result": 2
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              },
+              "pm": {
+                "base": 2,
+                "plusAdditional": 2,
+                "result": 2
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              },
+              "pm": {
+                "base": 2,
+                "plusAdditional": 2,
+                "result": 2
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              },
+              "pm": {
+                "base": 2,
+                "plusAdditional": 2,
+                "result": 2
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              },
+              "pm": {
+                "base": 2,
+                "plusAdditional": 2,
+                "result": 2
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              },
+              "pm": {
+                "base": 2,
+                "plusAdditional": 2,
+                "result": 2
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "A.G",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "M.E",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 15,
+                "plusAdditional": 15,
+                "result": 15
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 5,
+                "plusAdditional": 5,
+                "result": 5
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        },
+        {
+          "patientName": "A.R",
+          "complexity": 1,
+          "staffCount": 1,
+          "additionalTime": 0,
+          "weeklyCaresBreakdown": [
+            {
+              "day": "Monday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            },
+            {
+              "day": "Tuesday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            },
+            {
+              "day": "Wednesday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            },
+            {
+              "day": "Thursday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            },
+            {
+              "day": "Friday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            },
+            {
+              "day": "Saturday",
+              "am": {
+                "base": 20,
+                "plusAdditional": 20,
+                "result": 20
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            },
+            {
+              "day": "Sunday",
+              "am": {
+                "base": 30,
+                "plusAdditional": 30,
+                "result": 30
+              },
+              "pm": {
+                "base": 25,
+                "plusAdditional": 25,
+                "result": 25
+              }
+            }
+          ],
+          "dailyScheduleBreakdown": []
+        }
+      ]
+    }
+  ]
+}

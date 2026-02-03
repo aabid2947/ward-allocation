@@ -41,6 +41,8 @@ export const getUsers = async (req, res) => {
 };
 
 // Create user
+// curl request for create user
+// curl -X POST http://localhost:5000/api/auth/users -H "Content-Type: application/json" -d '{"username":"Banburypark.al.nz","password":"Banbury1!","name":"Banbury Park","role":"admin"}'
 export const createUser = async (req, res) => {
   try {
     console.log("Creating user with data:", req.body);

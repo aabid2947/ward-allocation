@@ -1,20 +1,26 @@
 {
   "metadata": {
-    "timestamp": "2026-02-03T02:53:30.832Z",
+    "timestamp": "2026-02-03T10:49:48.386Z",
     "date": "2026-02-03",
     "shift": "AM",
     "totalWards": 2,
     "totalStaff": 5,
-    "totalPatients": 11,
-    "executionTimeMs": 1565
+    "totalPatients": 12,
+    "executionTimeMs": 323
   },
   "wardAllocations": {
     "East Wing 1": {
       "wardName": "East Wing 1",
       "wardId": "6974fc5f9830b0814f9de905",
       "staffPool": {
-        "total": 2,
+        "total": 3,
         "available": [
+          {
+            "name": "HCA Alice",
+            "gender": "Female",
+            "canHandleHeavyLoad": true,
+            "initialLoad": 0
+          },
           {
             "name": "HCA Carol",
             "gender": "Female",
@@ -36,7 +42,7 @@
             "taskNumber": 0,
             "taskName": "Morning Tea (1/1)",
             "taskType": "GlobalTask",
-            "duration": 5,
+            "duration": 6,
             "staffNeeded": 1,
             "constraints": {
               "patient": null,
@@ -45,9 +51,13 @@
               "timeWindow": "10:00-flexible"
             },
             "eligibilityCheck": {
-              "totalStaff": 2,
+              "totalStaff": 3,
               "rejectedStaff": [],
               "eligibleStaff": [
+                {
+                  "name": "HCA Alice",
+                  "currentLoad": 0
+                },
                 {
                   "name": "HCA Carol",
                   "currentLoad": 0
@@ -61,6 +71,10 @@
             "selectionProcess": {
               "eligibleStaffSorted": [
                 {
+                  "name": "HCA Alice",
+                  "currentLoad": 0
+                },
+                {
                   "name": "HCA Carol",
                   "currentLoad": 0
                 },
@@ -71,10 +85,10 @@
               ],
               "selectedStaff": [
                 {
-                  "name": "HCA Carol",
+                  "name": "HCA Alice",
                   "role": "Primary",
                   "loadBefore": 0,
-                  "loadAfter": 5,
+                  "loadAfter": 6,
                   "reason": "Least loaded eligible staff"
                 }
               ]
@@ -97,12 +111,16 @@
               "timeWindow": "flexible"
             },
             "eligibilityCheck": {
-              "totalStaff": 2,
+              "totalStaff": 3,
               "rejectedStaff": [],
               "eligibleStaff": [
                 {
+                  "name": "HCA Alice",
+                  "currentLoad": 6
+                },
+                {
                   "name": "HCA Carol",
-                  "currentLoad": 5
+                  "currentLoad": 0
                 },
                 {
                   "name": "HCA Eve",
@@ -113,17 +131,21 @@
             "selectionProcess": {
               "eligibleStaffSorted": [
                 {
+                  "name": "HCA Carol",
+                  "currentLoad": 0
+                },
+                {
                   "name": "HCA Eve",
                   "currentLoad": 0
                 },
                 {
-                  "name": "HCA Carol",
-                  "currentLoad": 5
+                  "name": "HCA Alice",
+                  "currentLoad": 6
                 }
               ],
               "selectedStaff": [
                 {
-                  "name": "HCA Eve",
+                  "name": "HCA Carol",
                   "role": "Primary",
                   "loadBefore": 0,
                   "loadAfter": 30,
@@ -147,43 +169,51 @@
               "timeWindow": "flexible"
             },
             "eligibilityCheck": {
-              "totalStaff": 2,
+              "totalStaff": 3,
               "rejectedStaff": [],
               "eligibleStaff": [
                 {
+                  "name": "HCA Alice",
+                  "currentLoad": 6
+                },
+                {
                   "name": "HCA Carol",
-                  "currentLoad": 5
+                  "currentLoad": 30
                 },
                 {
                   "name": "HCA Eve",
-                  "currentLoad": 30
+                  "currentLoad": 0
                 }
               ]
             },
             "selectionProcess": {
               "eligibleStaffSorted": [
                 {
-                  "name": "HCA Carol",
-                  "currentLoad": 5
+                  "name": "HCA Eve",
+                  "currentLoad": 0
                 },
                 {
-                  "name": "HCA Eve",
+                  "name": "HCA Alice",
+                  "currentLoad": 6
+                },
+                {
+                  "name": "HCA Carol",
                   "currentLoad": 30
                 }
               ],
               "selectedStaff": [
                 {
-                  "name": "HCA Carol",
+                  "name": "HCA Eve",
                   "role": "Primary",
-                  "loadBefore": 5,
-                  "loadAfter": 35,
+                  "loadBefore": 0,
+                  "loadAfter": 30,
                   "reason": "Least loaded eligible staff"
                 },
                 {
-                  "name": "HCA Eve",
+                  "name": "HCA Alice",
                   "role": "Assistant 1",
-                  "loadBefore": 30,
-                  "loadAfter": 60,
+                  "loadBefore": 6,
+                  "loadAfter": 36,
                   "reason": "2th least loaded eligible staff"
                 }
               ]
@@ -204,16 +234,20 @@
               "timeWindow": "flexible"
             },
             "eligibilityCheck": {
-              "totalStaff": 2,
+              "totalStaff": 3,
               "rejectedStaff": [],
               "eligibleStaff": [
                 {
+                  "name": "HCA Alice",
+                  "currentLoad": 36
+                },
+                {
                   "name": "HCA Carol",
-                  "currentLoad": 35
+                  "currentLoad": 30
                 },
                 {
                   "name": "HCA Eve",
-                  "currentLoad": 60
+                  "currentLoad": 30
                 }
               ]
             },
@@ -221,19 +255,23 @@
               "eligibleStaffSorted": [
                 {
                   "name": "HCA Carol",
-                  "currentLoad": 35
+                  "currentLoad": 30
                 },
                 {
                   "name": "HCA Eve",
-                  "currentLoad": 60
+                  "currentLoad": 30
+                },
+                {
+                  "name": "HCA Alice",
+                  "currentLoad": 36
                 }
               ],
               "selectedStaff": [
                 {
                   "name": "HCA Carol",
                   "role": "Primary",
-                  "loadBefore": 35,
-                  "loadAfter": 60,
+                  "loadBefore": 30,
+                  "loadAfter": 55,
                   "reason": "Least loaded eligible staff"
                 }
               ]
@@ -254,36 +292,44 @@
               "timeWindow": "flexible"
             },
             "eligibilityCheck": {
-              "totalStaff": 2,
+              "totalStaff": 3,
               "rejectedStaff": [],
               "eligibleStaff": [
                 {
+                  "name": "HCA Alice",
+                  "currentLoad": 36
+                },
+                {
                   "name": "HCA Carol",
-                  "currentLoad": 60
+                  "currentLoad": 55
                 },
                 {
                   "name": "HCA Eve",
-                  "currentLoad": 60
+                  "currentLoad": 30
                 }
               ]
             },
             "selectionProcess": {
               "eligibleStaffSorted": [
                 {
-                  "name": "HCA Carol",
-                  "currentLoad": 60
+                  "name": "HCA Eve",
+                  "currentLoad": 30
                 },
                 {
-                  "name": "HCA Eve",
-                  "currentLoad": 60
+                  "name": "HCA Alice",
+                  "currentLoad": 36
+                },
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 55
                 }
               ],
               "selectedStaff": [
                 {
-                  "name": "HCA Carol",
+                  "name": "HCA Eve",
                   "role": "Primary",
-                  "loadBefore": 60,
-                  "loadAfter": 75,
+                  "loadBefore": 30,
+                  "loadAfter": 45,
                   "reason": "Least loaded eligible staff"
                 }
               ]
@@ -293,6 +339,64 @@
           },
           {
             "taskNumber": 4,
+            "taskName": "Base Care: Md Aabid Hussain",
+            "taskType": "PatientCare",
+            "duration": 15,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "Md Aabid Hussain",
+              "genderRequired": "Female",
+              "acuityLevel": "Low",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 3,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Alice",
+                  "currentLoad": 36
+                },
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 55
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 45
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Alice",
+                  "currentLoad": 36
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 45
+                },
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 55
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Alice",
+                  "role": "Primary",
+                  "loadBefore": 36,
+                  "loadAfter": 51,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 5,
             "taskName": "Base Care: S.J",
             "taskType": "PatientCare",
             "duration": 10,
@@ -304,16 +408,20 @@
               "timeWindow": "flexible"
             },
             "eligibilityCheck": {
-              "totalStaff": 2,
+              "totalStaff": 3,
               "rejectedStaff": [],
               "eligibleStaff": [
                 {
+                  "name": "HCA Alice",
+                  "currentLoad": 51
+                },
+                {
                   "name": "HCA Carol",
-                  "currentLoad": 75
+                  "currentLoad": 55
                 },
                 {
                   "name": "HCA Eve",
-                  "currentLoad": 60
+                  "currentLoad": 45
                 }
               ]
             },
@@ -321,19 +429,23 @@
               "eligibleStaffSorted": [
                 {
                   "name": "HCA Eve",
-                  "currentLoad": 60
+                  "currentLoad": 45
+                },
+                {
+                  "name": "HCA Alice",
+                  "currentLoad": 51
                 },
                 {
                   "name": "HCA Carol",
-                  "currentLoad": 75
+                  "currentLoad": 55
                 }
               ],
               "selectedStaff": [
                 {
                   "name": "HCA Eve",
                   "role": "Primary",
-                  "loadBefore": 60,
-                  "loadAfter": 70,
+                  "loadBefore": 45,
+                  "loadAfter": 55,
                   "reason": "Least loaded eligible staff"
                 }
               ]
@@ -346,8 +458,8 @@
       "rebalancingSteps": {
         "globalTaskBalancing": {
           "iterations": 1,
-          "initialVariance": 6.25,
-          "finalVariance": 6.25,
+          "initialVariance": 3.5555555555555554,
+          "finalVariance": 3.5555555555555554,
           "rebalancingSteps": [
             {
               "iteration": 1,
@@ -355,20 +467,24 @@
               "action": "CONVERGED",
               "message": "Load difference < 10 minutes, stopping rebalancing",
               "beforeState": {
-                "variance": 6.25,
+                "variance": 3.5555555555555554,
                 "loadDistribution": [
                   {
+                    "staff": "HCA Alice",
+                    "load": 51
+                  },
+                  {
                     "staff": "HCA Carol",
-                    "load": 75
+                    "load": 55
                   },
                   {
                     "staff": "HCA Eve",
-                    "load": 70
+                    "load": 55
                   }
                 ],
-                "maxLoad": 75,
-                "minLoad": 70,
-                "difference": 5
+                "maxLoad": 55,
+                "minLoad": 51,
+                "difference": 4
               }
             }
           ],
@@ -376,8 +492,8 @@
         },
         "patientCareBalancing": {
           "iterations": 1,
-          "initialVariance": 6.25,
-          "finalVariance": 6.25,
+          "initialVariance": 3.5555555555555554,
+          "finalVariance": 3.5555555555555554,
           "rebalancingSteps": [
             {
               "iteration": 1,
@@ -385,20 +501,24 @@
               "action": "CONVERGED",
               "message": "Load difference < 10 minutes, stopping rebalancing",
               "beforeState": {
-                "variance": 6.25,
+                "variance": 3.5555555555555554,
                 "loadDistribution": [
                   {
                     "staff": "HCA Carol",
-                    "load": 75
+                    "load": 55
                   },
                   {
                     "staff": "HCA Eve",
-                    "load": 70
+                    "load": 55
+                  },
+                  {
+                    "staff": "HCA Alice",
+                    "load": 51
                   }
                 ],
-                "maxLoad": 75,
-                "minLoad": 70,
-                "difference": 5
+                "maxLoad": 55,
+                "minLoad": 51,
+                "difference": 4
               }
             }
           ],
@@ -406,8 +526,8 @@
         },
         "dailySlotBalancing": {
           "iterations": 1,
-          "initialVariance": 6.25,
-          "finalVariance": 6.25,
+          "initialVariance": 3.5555555555555554,
+          "finalVariance": 3.5555555555555554,
           "rebalancingSteps": [
             {
               "iteration": 1,
@@ -415,20 +535,24 @@
               "action": "CONVERGED",
               "message": "Load difference < 10 minutes, stopping rebalancing",
               "beforeState": {
-                "variance": 6.25,
+                "variance": 3.5555555555555554,
                 "loadDistribution": [
                   {
                     "staff": "HCA Carol",
-                    "load": 75
+                    "load": 55
                   },
                   {
                     "staff": "HCA Eve",
-                    "load": 70
+                    "load": 55
+                  },
+                  {
+                    "staff": "HCA Alice",
+                    "load": 51
                   }
                 ],
-                "maxLoad": 75,
-                "minLoad": 70,
-                "difference": 5
+                "maxLoad": 55,
+                "minLoad": 51,
+                "difference": 4
               }
             }
           ],
@@ -439,28 +563,38 @@
         "staffLoads": [
           {
             "name": "HCA Carol",
-            "totalMinutes": 75,
-            "assignments": 4,
+            "totalMinutes": 55,
+            "assignments": 2,
             "breakdown": {
-              "globalTasks": 1,
-              "patientCare": 3,
+              "globalTasks": 0,
+              "patientCare": 2,
               "dailySlots": 0
             }
           },
           {
             "name": "HCA Eve",
-            "totalMinutes": 70,
+            "totalMinutes": 55,
             "assignments": 3,
             "breakdown": {
               "globalTasks": 0,
               "patientCare": 3,
               "dailySlots": 0
             }
+          },
+          {
+            "name": "HCA Alice",
+            "totalMinutes": 51,
+            "assignments": 3,
+            "breakdown": {
+              "globalTasks": 1,
+              "patientCare": 2,
+              "dailySlots": 0
+            }
           }
         ],
-        "variance": 6.25,
-        "stdDev": 2.5,
-        "fairnessScore": 0.13793103448275862
+        "variance": 3.5555555555555554,
+        "stdDev": 1.8856180831641267,
+        "fairnessScore": 0.21951219512195122
       },
       "errors": []
     },
@@ -1043,16 +1177,16 @@
     }
   },
   "summary": {
-    "totalAssignments": 14,
+    "totalAssignments": 15,
     "unallocatedTasks": 0,
     "fairnessMetrics": {
-      "overallVariance": 7.625,
+      "overallVariance": 6.277777777777778,
       "wardVariances": [
         {
           "ward": "East Wing 1",
-          "variance": 6.25,
-          "stdDev": 2.5,
-          "staffCount": 2
+          "variance": 3.5555555555555554,
+          "stdDev": 1.8856180831641267,
+          "staffCount": 3
         },
         {
           "ward": "West Wing 1",
@@ -1073,6 +1207,7 @@
     "details": [
       {
         "name": "HCA Alice",
+        "ward": "6974fc5f9830b0814f9de905",
         "available": true,
         "reason": null
       },

@@ -28,9 +28,9 @@ const ensureLogDirectory = () => {
  */
 const writeAllocationLog = (log, date, shift) => {
   try {
-    const logDir = ensureLogDirectory();
-    const timestamp = Date.now();
-    const dateStr = new Date(date).toISOString().split("T")[0];
+    // const logDir = ensureLogDirectory();
+    // const timestamp = Date.now();
+    // const dateStr = new Date(date).toISOString().split("T")[0];
     // const filename = `allocation_${dateStr}_${shift}_${timestamp}.json`;
     // const filepath = path.join(logDir, filename);
     // fs.writeFileSync(filepath, JSON.stringify(log, null, 2));
@@ -348,6 +348,7 @@ const buildWardTasks = (wardPatients, globalTasks, shift, dayOfWeek, ward) => {
       (c) => c.day === dayOfWeek
     );
     const isShowerDay = weeklyCare?.showerDay || false;
+    const isLinenChange = weeklyCare?.linenChange || false;
 
     // Daily schedule slots
     if (patient.dailySchedule && Array.isArray(patient.dailySchedule)) {
@@ -377,6 +378,7 @@ const buildWardTasks = (wardPatients, globalTasks, shift, dayOfWeek, ward) => {
             name: `${(slot.activities || []).join(", ")}: ${patient.name}`,
             taskSignature: `DAILY_${patient._id}_${idx}`,
             isShowerDay,
+            isLinenChange,
             startTime: slot.startTime,
             endTime: slot.endTime || null,
             patient,
@@ -416,6 +418,7 @@ const buildWardTasks = (wardPatients, globalTasks, shift, dayOfWeek, ward) => {
           name: `Base Care: ${patient.name}`,
           taskSignature: `WEEKLY_${patient._id}_${shift}`,
           isShowerDay,
+          isLinenChange,
           startTime,
           endTime,
           patient,
@@ -549,8 +552,9 @@ const allocateTaskAtomic = (staffPool, task, ward, taskIndex) => {
          name: task.patient.name,
          roomNumber: task.patient.currentRoom?.roomNumber || "-",
          mobility: task.patient.mobilityAid || "-",
-         careSchedule: task.isShowerDay ? "Shower Day" : "Standard Care",
-         showerDay: task.isShowerDay || false
+         careSchedule: task.patient?.careSchedule || (task.isShowerDay ? "Shower" : "Standard"),
+         showerDay: task.isShowerDay || false,
+         linenChange: task.isLinenChange || false,
       } : null,
       minutesAllocated: task.duration,
       taskName: task.name + (roleLabel !== "Primary" ? ` (${roleLabel})` : ""),
@@ -1312,7 +1316,7 @@ export const calculateAllocation = async (date, shift) => {
     
     // Write log to file
     allDetailsJson.detailedLog = allocationLog;
-    writeAllocationLog(allocationLog, date, shift);
+    // writeAllocationLog(allocationLog, date, shift);
     
     return { assignments: totalAssignments, allDetailsJson };
   } catch (error) {
