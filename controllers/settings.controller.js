@@ -141,22 +141,28 @@ export const getDetailedFacilityOverview = async (req, res) => {
       const patients = await Patient.find({ currentWard: ward._id, status: "Admitted" });
       
       const weeklyLoad = {};
-      daysOfWeek.forEach(day => weeklyLoad[day] = 0);
+      daysOfWeek.forEach(day => weeklyLoad[day] = { am: 0, pm: 0 });
 
       for (const patient of patients) {
         // 1. Weekly Cares (Day specific)
         if (patient.weeklyCares) {
           patient.weeklyCares.forEach(care => {
-            const duration = parseDuration(care.amDuration) + parseDuration(care.pmDuration);
-            if (weeklyLoad[care.day] !== undefined) {
-              weeklyLoad[care.day] += duration;
+            const am = parseDuration(care.amDuration);
+            const pm = parseDuration(care.pmDuration);
+            if (weeklyLoad[care.day]) {
+              weeklyLoad[care.day].am += am;
+              weeklyLoad[care.day].pm += pm;
             }
           });
         }
 
         // 2. Daily Schedule (Applies to ALL days)
         if (patient.dailySchedule) {
-          const dailyTotal = patient.dailySchedule.reduce((sum, slot) => {
+          // Separate AM and PM total for daily schedule
+          let dailyAm = 0;
+          let dailyPm = 0;
+
+          patient.dailySchedule.forEach(slot => {
             let duration = slot.durationMinutes || 0;
             if (!slot.isFixedDuration && slot.startTime && slot.endTime) {
                // Simple diff
@@ -164,11 +170,17 @@ export const getDetailedFacilityOverview = async (req, res) => {
                const end = parseInt(slot.endTime.split(':')[0]) * 60 + parseInt(slot.endTime.split(':')[1]);
                duration = end - start;
             }
-            return sum + (duration > 0 ? duration : 0);
-          }, 0);
+            duration = duration > 0 ? duration : 0;
+
+            // Determine shift if not set
+            const shift = slot.shift || (parseInt(slot.startTime?.split(':')[0]) < 13 ? 'AM' : 'PM');
+            if (shift === 'AM') dailyAm += duration;
+            else dailyPm += duration;
+          });
 
           daysOfWeek.forEach(day => {
-            weeklyLoad[day] += dailyTotal;
+            weeklyLoad[day].am += dailyAm;
+            weeklyLoad[day].pm += dailyPm;
           });
         }
       }

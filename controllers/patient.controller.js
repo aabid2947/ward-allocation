@@ -66,12 +66,14 @@ export const getPatients = async (req, res) => {
 // Create a new patient (Admit Patient)
 export const admitPatient = async (req, res) => {
   let { 
-    name, primaryCondition, careLevel, mobilityLevel, complexityScore, 
+    name, primaryCondition, complexityScore, 
     admissionDate, currentWard, currentRoom,
     mobilityAid, acuityLevel, additionalTime, weeklyCares, 
     schedules, 
     dailySchedule,
-    slots // Frontend might send this
+    slots, // Frontend might send this
+    noOfStaff,
+    staffGender
   } = req.body;
 
   try {
@@ -87,10 +89,12 @@ export const admitPatient = async (req, res) => {
 
     // 1. Create Patient
     const newPatient = new Patient({
-      name, primaryCondition, careLevel, mobilityLevel, complexityScore,
+      name, primaryCondition,  complexityScore,
       admissionDate, currentWard, currentRoom,
       mobilityAid, acuityLevel, additionalTime, weeklyCares: weeklyCares || [],
-      dailySchedule: dailySchedule || []
+      dailySchedule: dailySchedule || [],
+      noOfStaff,
+      staffGender
     });
     await newPatient.save();
 
@@ -336,7 +340,6 @@ export const createDummyPatients = async (req, res) => {
       {
         name: "Alice Smith",
         primaryCondition: "Post-Op Recovery",
-        careLevel: "High",
         mobilityLevel: "Assisted",
         complexityScore: 1.5,
         admissionDate: new Date(),
@@ -361,7 +364,6 @@ export const createDummyPatients = async (req, res) => {
       {
         name: "Bob Jones",
         primaryCondition: "Dementia",
-        careLevel: "Medium",
         mobilityLevel: "Independent",
         complexityScore: 1.2,
         admissionDate: new Date(),
@@ -386,7 +388,6 @@ export const createDummyPatients = async (req, res) => {
       {
         name: "Charlie Brown",
         primaryCondition: "Stroke",
-        careLevel: "High",
         mobilityLevel: "BedBound",
         complexityScore: 1.8,
         admissionDate: new Date(),
@@ -410,7 +411,6 @@ export const createDummyPatients = async (req, res) => {
       {
         name: "Diana Prince",
         primaryCondition: "Frailty",
-        careLevel: "Low",
         mobilityLevel: "WalkingFrame",
         complexityScore: 1.1,
         admissionDate: new Date(),

@@ -6,12 +6,12 @@ const PatientSchema = new mongoose.Schema({
   careLevel: {
     type: String,
     enum: ["Low", "Medium", "High", "EndOfLife", "Hospital"],
-    required: true
+    required: false
   },
   mobilityLevel: {
     type: String,
     enum: ["BedBound", "Assisted", "WalkingFrame", "Independent"],
-    required: true
+    required: false
   },
   complexityScore: { type: Number, min: 1.0, max: 2.0, required: true },
   admissionDate: { type: Date, required: true },
@@ -23,6 +23,7 @@ const PatientSchema = new mongoose.Schema({
   },
   mobilityAid: { type: String }, // e.g., "LWF", "WC", "S.HOIST"
   acuityLevel: { type: String }, // e.g., "High", "Low"
+  staffGender: { type: String, enum: ["Male", "Female","Any"] },
   additionalTime: { type: Number, default: 0 }, // Extra minutes per shift
   noOfStaff: { type: Number, default: 1 }, // Number of staff required
   // Weekly grid for base cares (to match the Mon-Sun columns)
@@ -30,7 +31,8 @@ const PatientSchema = new mongoose.Schema({
     day: { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] },
     amDuration: { type: String }, // Stored as string to handle "15-20"
     pmDuration: { type: String },
-    specialTime: { type: String }  // e.g., "8:40-9am"
+    specialTime: { type: String },  // e.g., "8:40-9am"
+    showerDay: { type: Boolean, default: false } // Indicates if it's a shower day
   }],
   dailySchedule: [{
     startTime: String, // "HH:mm"

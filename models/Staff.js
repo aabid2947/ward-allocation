@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const StaffSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  gender: { type: String, enum: ["Male", "Female"], required: true },
   role: { type: String, enum: ["HCA", "RN", "EN"], required: true },
   employmentType: { type: String, enum: ["FullTime", "PartTime", "Casual"], required: true },
   availability: {

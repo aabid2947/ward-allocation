@@ -1,0 +1,1955 @@
+{
+  "metadata": {
+    "timestamp": "2026-02-02T10:52:17.483Z",
+    "date": "2026-02-02",
+    "shift": "AM",
+    "totalWards": 2,
+    "totalStaff": 5,
+    "totalPatients": 11,
+    "executionTimeMs": 2555
+  },
+  "wardAllocations": {
+    "East Wing 1": {
+      "wardName": "East Wing 1",
+      "wardId": "6974fc5f9830b0814f9de905",
+      "staffPool": {
+        "total": 2,
+        "available": [
+          {
+            "name": "HCA Carol",
+            "gender": "Female",
+            "canHandleHeavyLoad": true,
+            "initialLoad": 0
+          },
+          {
+            "name": "HCA Eve",
+            "gender": "Female",
+            "canHandleHeavyLoad": true,
+            "initialLoad": 0
+          }
+        ],
+        "unavailable": []
+      },
+      "taskProcessing": {
+        "globalTasks": [
+          {
+            "taskNumber": 0,
+            "taskName": "Morning Tea: B.M",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "B.M",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 0
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 0
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "role": "Primary",
+                  "loadBefore": 0,
+                  "loadAfter": 1,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 1,
+            "taskName": "Morning Tea: B.B",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "B.B",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 0
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 0
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Eve",
+                  "role": "Primary",
+                  "loadBefore": 0,
+                  "loadAfter": 1,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 2,
+            "taskName": "Morning Tea: S.J",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "S.J",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "HCA Eve",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": []
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [],
+              "selectedStaff": []
+            },
+            "result": "FAILED",
+            "failureReason": "Insufficient eligible staff: needed 1, only 0 available after constraints"
+          },
+          {
+            "taskNumber": 3,
+            "taskName": "Morning Tea: N.G",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "N.G",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "HCA Eve",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": []
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [],
+              "selectedStaff": []
+            },
+            "result": "FAILED",
+            "failureReason": "Insufficient eligible staff: needed 1, only 0 available after constraints"
+          },
+          {
+            "taskNumber": 4,
+            "taskName": "Morning Tea: B.R",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "B.R",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "HCA Eve",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": []
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [],
+              "selectedStaff": []
+            },
+            "result": "FAILED",
+            "failureReason": "Insufficient eligible staff: needed 1, only 0 available after constraints"
+          }
+        ],
+        "patientTasks": [
+          {
+            "taskNumber": 0,
+            "taskName": "Base Care: N.G",
+            "taskType": "PatientCare",
+            "duration": 30,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "N.G",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 1
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 1
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 1
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 1
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "role": "Primary",
+                  "loadBefore": 1,
+                  "loadAfter": 31,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 1,
+            "taskName": "Base Care: S.J",
+            "taskType": "PatientCare",
+            "duration": 20,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "S.J",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 31
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 1
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 1
+                },
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 31
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Eve",
+                  "role": "Primary",
+                  "loadBefore": 1,
+                  "loadAfter": 21,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 2,
+            "taskName": "Base Care: B.R",
+            "taskType": "PatientCare",
+            "duration": 20,
+            "staffNeeded": 2,
+            "constraints": {
+              "patient": "B.R",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 31
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 21
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 21
+                },
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 31
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Eve",
+                  "role": "Primary",
+                  "loadBefore": 21,
+                  "loadAfter": 41,
+                  "reason": "Least loaded eligible staff"
+                },
+                {
+                  "name": "HCA Carol",
+                  "role": "Assistant 1",
+                  "loadBefore": 31,
+                  "loadAfter": 51,
+                  "reason": "2th least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 3,
+            "taskName": "Base Care: B.M",
+            "taskType": "PatientCare",
+            "duration": 15,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "B.M",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 51
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 41
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 41
+                },
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 51
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Eve",
+                  "role": "Primary",
+                  "loadBefore": 41,
+                  "loadAfter": 56,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 4,
+            "taskName": "Base Care: B.B",
+            "taskType": "PatientCare",
+            "duration": 10,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "B.B",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 51
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 56
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Carol",
+                  "currentLoad": 51
+                },
+                {
+                  "name": "HCA Eve",
+                  "currentLoad": 56
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Carol",
+                  "role": "Primary",
+                  "loadBefore": 51,
+                  "loadAfter": 61,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          }
+        ]
+      },
+      "rebalancingSteps": {
+        "globalTaskBalancing": {
+          "iterations": 1,
+          "initialVariance": 6.25,
+          "finalVariance": 6.25,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "GlobalTask",
+              "action": "CONVERGED",
+              "message": "Load difference < 10 minutes, stopping rebalancing",
+              "beforeState": {
+                "variance": 6.25,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Carol",
+                    "load": 61
+                  },
+                  {
+                    "staff": "HCA Eve",
+                    "load": 56
+                  }
+                ],
+                "maxLoad": 61,
+                "minLoad": 56,
+                "difference": 5
+              }
+            }
+          ],
+          "converged": true
+        },
+        "patientCareBalancing": {
+          "iterations": 1,
+          "initialVariance": 6.25,
+          "finalVariance": 6.25,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "PatientCare",
+              "action": "CONVERGED",
+              "message": "Load difference < 10 minutes, stopping rebalancing",
+              "beforeState": {
+                "variance": 6.25,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Carol",
+                    "load": 61
+                  },
+                  {
+                    "staff": "HCA Eve",
+                    "load": 56
+                  }
+                ],
+                "maxLoad": 61,
+                "minLoad": 56,
+                "difference": 5
+              }
+            }
+          ],
+          "converged": true
+        },
+        "dailySlotBalancing": {
+          "iterations": 1,
+          "initialVariance": 6.25,
+          "finalVariance": 6.25,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "DailySlot",
+              "action": "CONVERGED",
+              "message": "Load difference < 10 minutes, stopping rebalancing",
+              "beforeState": {
+                "variance": 6.25,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Carol",
+                    "load": 61
+                  },
+                  {
+                    "staff": "HCA Eve",
+                    "load": 56
+                  }
+                ],
+                "maxLoad": 61,
+                "minLoad": 56,
+                "difference": 5
+              }
+            }
+          ],
+          "converged": true
+        }
+      },
+      "finalState": {
+        "staffLoads": [
+          {
+            "name": "HCA Carol",
+            "totalMinutes": 61,
+            "assignments": 4,
+            "breakdown": {
+              "globalTasks": 1,
+              "patientCare": 3,
+              "dailySlots": 0
+            }
+          },
+          {
+            "name": "HCA Eve",
+            "totalMinutes": 56,
+            "assignments": 4,
+            "breakdown": {
+              "globalTasks": 1,
+              "patientCare": 3,
+              "dailySlots": 0
+            }
+          }
+        ],
+        "variance": 6.25,
+        "stdDev": 2.5,
+        "fairnessScore": 0.13793103448275862
+      },
+      "errors": []
+    },
+    "West Wing 1": {
+      "wardName": "West Wing 1",
+      "wardId": "6979c7aebec2b18eb7a13f1b",
+      "staffPool": {
+        "total": 2,
+        "available": [
+          {
+            "name": "HCA Bob",
+            "gender": "Male",
+            "canHandleHeavyLoad": false,
+            "initialLoad": 0
+          },
+          {
+            "name": "HCA Dave",
+            "gender": "Male",
+            "canHandleHeavyLoad": true,
+            "initialLoad": 0
+          }
+        ],
+        "unavailable": []
+      },
+      "taskProcessing": {
+        "globalTasks": [
+          {
+            "taskNumber": 0,
+            "taskName": "Morning Tea: E.R",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "E.R",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 0
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 0
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 0
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "role": "Primary",
+                  "loadBefore": 0,
+                  "loadAfter": 1,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 1,
+            "taskName": "Morning Tea: J.I",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "J.I",
+              "genderRequired": "Any",
+              "acuityLevel": "High",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Acuity-HeavyLoad",
+                      "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+                    },
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 0
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 0
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Dave",
+                  "role": "Primary",
+                  "loadBefore": 0,
+                  "loadAfter": 1,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 2,
+            "taskName": "Morning Tea: D.W",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "D.W",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "HCA Dave",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": []
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [],
+              "selectedStaff": []
+            },
+            "result": "FAILED",
+            "failureReason": "Insufficient eligible staff: needed 1, only 0 available after constraints"
+          },
+          {
+            "taskNumber": 3,
+            "taskName": "Morning Tea: A.G",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "A.G",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "HCA Dave",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": []
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [],
+              "selectedStaff": []
+            },
+            "result": "FAILED",
+            "failureReason": "Insufficient eligible staff: needed 1, only 0 available after constraints"
+          },
+          {
+            "taskNumber": 4,
+            "taskName": "Morning Tea: M.E",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "M.E",
+              "genderRequired": "Any",
+              "acuityLevel": "High",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Acuity-HeavyLoad",
+                      "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+                    },
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "HCA Dave",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": []
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [],
+              "selectedStaff": []
+            },
+            "result": "FAILED",
+            "failureReason": "Insufficient eligible staff: needed 1, only 0 available after constraints"
+          },
+          {
+            "taskNumber": 5,
+            "taskName": "Morning Tea: A.R",
+            "taskType": "GlobalTask",
+            "duration": 1,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "A.R",
+              "genderRequired": "Any",
+              "acuityLevel": "High",
+              "timeWindow": "10:00-flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Acuity-HeavyLoad",
+                      "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+                    },
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "HCA Dave",
+                  "reasons": [
+                    {
+                      "constraint": "Time Conflict",
+                      "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+                      "details": {
+                        "existingBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        },
+                        "requestedBlock": {
+                          "start": "10:00",
+                          "end": "10:01"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": []
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [],
+              "selectedStaff": []
+            },
+            "result": "FAILED",
+            "failureReason": "Insufficient eligible staff: needed 1, only 0 available after constraints"
+          }
+        ],
+        "patientTasks": [
+          {
+            "taskNumber": 0,
+            "taskName": "Base Care: A.R",
+            "taskType": "PatientCare",
+            "duration": 30,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "A.R",
+              "genderRequired": "Any",
+              "acuityLevel": "High",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Acuity-HeavyLoad",
+                      "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 1
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 1
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Dave",
+                  "role": "Primary",
+                  "loadBefore": 1,
+                  "loadAfter": 31,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 1,
+            "taskName": "Base Care: A.G",
+            "taskType": "PatientCare",
+            "duration": 25,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "A.G",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 1
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 31
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 1
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 31
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "role": "Primary",
+                  "loadBefore": 1,
+                  "loadAfter": 26,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 2,
+            "taskName": "Base Care: E.R",
+            "taskType": "PatientCare",
+            "duration": 20,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "E.R",
+              "genderRequired": "Any",
+              "acuityLevel": "Medium",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 26
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 31
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 26
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 31
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "role": "Primary",
+                  "loadBefore": 26,
+                  "loadAfter": 46,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 3,
+            "taskName": "Base Care: J.I",
+            "taskType": "PatientCare",
+            "duration": 15,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "J.I",
+              "genderRequired": "Any",
+              "acuityLevel": "High",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Acuity-HeavyLoad",
+                      "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 31
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 31
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Dave",
+                  "role": "Primary",
+                  "loadBefore": 31,
+                  "loadAfter": 46,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 4,
+            "taskName": "Base Care: M.E",
+            "taskType": "PatientCare",
+            "duration": 15,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "M.E",
+              "genderRequired": "Any",
+              "acuityLevel": "High",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "reasons": [
+                    {
+                      "constraint": "Acuity-HeavyLoad",
+                      "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+                    }
+                  ]
+                }
+              ],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 46
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 46
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Dave",
+                  "role": "Primary",
+                  "loadBefore": 46,
+                  "loadAfter": 61,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          },
+          {
+            "taskNumber": 5,
+            "taskName": "Base Care: D.W",
+            "taskType": "PatientCare",
+            "duration": 5,
+            "staffNeeded": 1,
+            "constraints": {
+              "patient": "D.W",
+              "genderRequired": "Any",
+              "acuityLevel": "Low",
+              "timeWindow": "flexible"
+            },
+            "eligibilityCheck": {
+              "totalStaff": 2,
+              "rejectedStaff": [],
+              "eligibleStaff": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 46
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 61
+                }
+              ]
+            },
+            "selectionProcess": {
+              "eligibleStaffSorted": [
+                {
+                  "name": "HCA Bob",
+                  "currentLoad": 46
+                },
+                {
+                  "name": "HCA Dave",
+                  "currentLoad": 61
+                }
+              ],
+              "selectedStaff": [
+                {
+                  "name": "HCA Bob",
+                  "role": "Primary",
+                  "loadBefore": 46,
+                  "loadAfter": 51,
+                  "reason": "Least loaded eligible staff"
+                }
+              ]
+            },
+            "result": "SUCCESS",
+            "failureReason": null
+          }
+        ]
+      },
+      "rebalancingSteps": {
+        "globalTaskBalancing": {
+          "iterations": 1,
+          "initialVariance": 25,
+          "finalVariance": 25,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "GlobalTask",
+              "action": "NO_CANDIDATES",
+              "message": "No movable tasks found for this task type",
+              "beforeState": {
+                "variance": 25,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Bob",
+                    "load": 51
+                  },
+                  {
+                    "staff": "HCA Dave",
+                    "load": 61
+                  }
+                ],
+                "maxLoad": 61,
+                "minLoad": 51,
+                "difference": 10
+              }
+            }
+          ],
+          "converged": true
+        },
+        "patientCareBalancing": {
+          "iterations": 1,
+          "initialVariance": 25,
+          "finalVariance": 25,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "PatientCare",
+              "action": "NO_CANDIDATES",
+              "message": "No movable tasks found for this task type",
+              "beforeState": {
+                "variance": 25,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Dave",
+                    "load": 61
+                  },
+                  {
+                    "staff": "HCA Bob",
+                    "load": 51
+                  }
+                ],
+                "maxLoad": 61,
+                "minLoad": 51,
+                "difference": 10
+              }
+            }
+          ],
+          "converged": true
+        },
+        "dailySlotBalancing": {
+          "iterations": 1,
+          "initialVariance": 25,
+          "finalVariance": 25,
+          "rebalancingSteps": [
+            {
+              "iteration": 1,
+              "phase": "DailySlot",
+              "action": "NO_CANDIDATES",
+              "message": "No movable tasks found for this task type",
+              "beforeState": {
+                "variance": 25,
+                "loadDistribution": [
+                  {
+                    "staff": "HCA Dave",
+                    "load": 61
+                  },
+                  {
+                    "staff": "HCA Bob",
+                    "load": 51
+                  }
+                ],
+                "maxLoad": 61,
+                "minLoad": 51,
+                "difference": 10
+              }
+            }
+          ],
+          "converged": true
+        }
+      },
+      "finalState": {
+        "staffLoads": [
+          {
+            "name": "HCA Dave",
+            "totalMinutes": 61,
+            "assignments": 4,
+            "breakdown": {
+              "globalTasks": 1,
+              "patientCare": 3,
+              "dailySlots": 0
+            }
+          },
+          {
+            "name": "HCA Bob",
+            "totalMinutes": 51,
+            "assignments": 4,
+            "breakdown": {
+              "globalTasks": 1,
+              "patientCare": 3,
+              "dailySlots": 0
+            }
+          }
+        ],
+        "variance": 25,
+        "stdDev": 5,
+        "fairnessScore": 0.038461538461538464
+      },
+      "errors": []
+    }
+  },
+  "summary": {
+    "totalAssignments": 16,
+    "unallocatedTasks": 7,
+    "fairnessMetrics": {
+      "overallVariance": 15.625,
+      "wardVariances": [
+        {
+          "ward": "East Wing 1",
+          "variance": 6.25,
+          "stdDev": 2.5,
+          "staffCount": 2
+        },
+        {
+          "ward": "West Wing 1",
+          "variance": 25,
+          "stdDev": 5,
+          "staffCount": 2
+        }
+      ]
+    },
+    "constraintViolations": 0,
+    "warnings": []
+  },
+  "unallocatedTasksDetail": [
+    {
+      "ward": "East Wing 1",
+      "task": "Morning Tea: S.J",
+      "reason": "Insufficient eligible staff: needed 1, only 0 available after constraints",
+      "constraints": {
+        "acuity": "Low"
+      },
+      "attemptedStaff": [
+        {
+          "name": "HCA Carol",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "HCA Eve",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ward": "East Wing 1",
+      "task": "Morning Tea: N.G",
+      "reason": "Insufficient eligible staff: needed 1, only 0 available after constraints",
+      "constraints": {
+        "acuity": "Medium"
+      },
+      "attemptedStaff": [
+        {
+          "name": "HCA Carol",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "HCA Eve",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ward": "East Wing 1",
+      "task": "Morning Tea: B.R",
+      "reason": "Insufficient eligible staff: needed 1, only 0 available after constraints",
+      "constraints": {
+        "gender": "",
+        "acuity": "Medium"
+      },
+      "attemptedStaff": [
+        {
+          "name": "HCA Carol",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "HCA Eve",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ward": "West Wing 1",
+      "task": "Morning Tea: D.W",
+      "reason": "Insufficient eligible staff: needed 1, only 0 available after constraints",
+      "constraints": {
+        "acuity": "Low"
+      },
+      "attemptedStaff": [
+        {
+          "name": "HCA Bob",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "HCA Dave",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ward": "West Wing 1",
+      "task": "Morning Tea: A.G",
+      "reason": "Insufficient eligible staff: needed 1, only 0 available after constraints",
+      "constraints": {
+        "acuity": "Medium"
+      },
+      "attemptedStaff": [
+        {
+          "name": "HCA Bob",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "HCA Dave",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ward": "West Wing 1",
+      "task": "Morning Tea: M.E",
+      "reason": "Insufficient eligible staff: needed 1, only 0 available after constraints",
+      "constraints": {
+        "acuity": "High"
+      },
+      "attemptedStaff": [
+        {
+          "name": "HCA Bob",
+          "reasons": [
+            {
+              "constraint": "Acuity-HeavyLoad",
+              "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+            },
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "HCA Dave",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ward": "West Wing 1",
+      "task": "Morning Tea: A.R",
+      "reason": "Insufficient eligible staff: needed 1, only 0 available after constraints",
+      "constraints": {
+        "acuity": "High"
+      },
+      "attemptedStaff": [
+        {
+          "name": "HCA Bob",
+          "reasons": [
+            {
+              "constraint": "Acuity-HeavyLoad",
+              "reason": "High acuity patient requires heavy-load capable staff, but staff.canHandleHeavyLoad = false"
+            },
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "HCA Dave",
+          "reasons": [
+            {
+              "constraint": "Time Conflict",
+              "reason": "Time conflict: staff busy 10:00-10:01, task needs 10:00-10:01",
+              "details": {
+                "existingBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                },
+                "requestedBlock": {
+                  "start": "10:00",
+                  "end": "10:01"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "staffAvailability": {
+    "total": 5,
+    "available": 5,
+    "unavailable": 0,
+    "details": [
+      {
+        "name": "HCA Alice",
+        "available": true,
+        "reason": null
+      },
+      {
+        "name": "HCA Bob",
+        "ward": "6979c7aebec2b18eb7a13f1b",
+        "available": true,
+        "reason": null
+      },
+      {
+        "name": "HCA Carol",
+        "ward": "6974fc5f9830b0814f9de905",
+        "available": true,
+        "reason": null
+      },
+      {
+        "name": "HCA Dave",
+        "ward": "6979c7aebec2b18eb7a13f1b",
+        "available": true,
+        "reason": null
+      },
+      {
+        "name": "HCA Eve",
+        "ward": "6974fc5f9830b0814f9de905",
+        "available": true,
+        "reason": null
+      }
+    ]
+  }
+}
