@@ -31,11 +31,11 @@ const writeAllocationLog = (log, date, shift) => {
     const logDir = ensureLogDirectory();
     const timestamp = Date.now();
     const dateStr = new Date(date).toISOString().split("T")[0];
-    const filename = `allocation_${dateStr}_${shift}_${timestamp}.json`;
-    const filepath = path.join(logDir, filename);
-    fs.writeFileSync(filepath, JSON.stringify(log, null, 2));
-    console.log(`Allocation log written to ${filepath}`);
-    return filepath;
+    // const filename = `allocation_${dateStr}_${shift}_${timestamp}.json`;
+    // const filepath = path.join(logDir, filename);
+    // fs.writeFileSync(filepath, JSON.stringify(log, null, 2));
+    // console.log(`Allocation log written to ${filepath}`);
+    return '';
   } catch (error) {
     console.error("Failed to write allocation log:", error.message);
     return null;
